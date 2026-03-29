@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEO – Komplette Lernunterlage</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f5;
+    --text: #1a1a1a;
+    --accent: #b44a2f;
+    --accent2: #2a6e4e;
+    --accent3: #2a4a8e;
+    --card: #ffffff;
+    --border: #e0dcd6;
+    --light: #f3f0eb;
+    --warn: #c9442a;
+    --success: #2a6e4e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 17px;
+  }
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 30px 24px 80px;
+  }
+  .header {
+    text-align: center;
+    padding: 50px 20px 40px;
+    border-bottom: 3px solid var(--accent);
+    margin-bottom: 40px;
+  }
+  .header h1 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 2.6em;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .header .subtitle {
+    font-size: 1.1em;
+    color: #666;
+  }
+  .header .meta {
+    margin-top: 14px;
+    font-size: 0.92em;
+    color: #999;
+  }
+  .toc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-bottom: 44px;
+  }
+  .toc h2 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.5em;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .toc ol { padding-left: 22px; }
+  .toc li { margin-bottom: 6px; }
+  .toc a { color: var(--accent3); text-decoration: none; border-bottom: 1px dashed var(--accent3); }
+  .toc a:hover { color: var(--accent); }
+  .section { margin-bottom: 50px; }
+  .section h2 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.9em;
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+  }
+  .section h3 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.35em;
+    color: var(--accent2);
+    margin: 28px 0 12px;
+  }
+  .section h4 {
+    font-size: 1.05em;
+    font-weight: 700;
+    color: var(--accent3);
+    margin: 20px 0 8px;
+  }
+  p { margin-bottom: 12px; }
+  .formula {
+    background: linear-gradient(135deg, #fef9f0 0%, #fdf5e8 100%);
+    border-left: 4px solid var(--accent);
+    padding: 16px 22px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 1em;
+    line-height: 1.9;
+    overflow-x: auto;
+  }
+  .rule {
+    background: linear-gradient(135deg, #f0f7f3 0%, #e8f5ed 100%);
+    border-left: 4px solid var(--accent2);
+    padding: 16px 22px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .rule strong { color: var(--accent2); }
+  .warning {
+    background: linear-gradient(135deg, #fdf2f0 0%, #fce8e4 100%);
+    border-left: 4px solid var(--warn);
+    padding: 16px 22px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .warning strong { color: var(--warn); }
+  .tip {
+    background: linear-gradient(135deg, #eef3fa 0%, #e4ecf8 100%);
+    border-left: 4px solid var(--accent3);
+    padding: 16px 22px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .tip strong { color: var(--accent3); }
+  .example {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .example-title {
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-size: 1.02em;
+  }
+  .graph-container {
+    margin: 20px 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .graph-container svg { display: block; width: 100%; height: auto; }
+  .graph-label {
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 6px;
+    font-style: italic;
+    text-align: center;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 0.97em;
+    overflow-x: auto;
+    display: block;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 9px 13px;
+    text-align: left;
+  }
+  th {
+    background: var(--light);
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  tr:nth-child(even) td { background: #faf8f4; }
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+  ul, ol {
+    padding-left: 24px;
+    margin-bottom: 12px;
+  }
+  li { margin-bottom: 5px; }
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+  }
+  .steps li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 48px;
+    margin-bottom: 12px;
+    min-height: 34px;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 0;
+    width: 32px; height: 32px;
+    background: var(--accent2);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9em;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+  <h1>GEO – Komplette Lernunterlage</h1>
+  <div class="subtitle">Geopolitik · Europa · Topografie · Naturräume · EU</div>
+  <div class="meta">Alle Themen aus Schulunterlagen, Buchseiten S. 164–193 und Mitschriften · Viel Erfolg! 🎯</div>
+</div>
+
+<!-- INHALTSVERZEICHNIS -->
+<div class="toc">
+  <h2>Inhaltsverzeichnis</h2>
+  <ol>
+    <li><a href="#s1">Geopolitik &amp; Grönland</a></li>
+    <li><a href="#s2">Weltfrauentag &amp; Malala</a></li>
+    <li><a href="#s3">Europa im Überblick + EU-Mitglieder-Karte</a></li>
+    <li><a href="#s4">Topografie Europas – mit Karte</a></li>
+    <li><a href="#s5">Naturräume Europas – Hochgebirge, Mittelgebirge, Becken, Ebenen</a></li>
+    <li><a href="#s6">Entwicklung der EU – Zeitleiste</a></li>
+    <li><a href="#s7">Politische Institutionen der EU</a></li>
+  </ol>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════ SEKTION 1 ══════════════════════════ -->
+<div class="section" id="s1">
+  <h2>1. Geopolitik &amp; Grönland</h2>
+
+  <div class="formula">
+    <strong>Geopolitik</strong> analysiert, wie geografische Faktoren (Lage, Ressourcen, Klima, Topografie) internationale Machtverhältnisse und die Außenpolitik von Staaten beeinflussen.
+  </div>
+
+  <h3>Einflussfaktoren der Geopolitik</h3>
+  <ul>
+    <li><strong>Geografie:</strong> Lage (Küsten-/Binnenstaat), Grenzen, Meerengen, Gebirge</li>
+    <li><strong>Ressourcen:</strong> Erdöl, Erdgas, seltene Erden, Wasser, Lithium</li>
+    <li><strong>Bevölkerung &amp; Wirtschaftsstärke</strong></li>
+    <li><strong>Technologie:</strong> Chips, KI, Cybermacht, Energie</li>
+    <li><strong>Militär:</strong> Basen, Flotten, Luftmacht, Sanktionen</li>
+  </ul>
+
+  <h3>Klassische Geopolitik-Beispiele</h3>
+  <div class="rule">
+    <strong>Ukraine:</strong> Lithium, Eisen, Mangan → unverzichtbar für Weltwirtschaft, Elektromobilität, Stahl
+  </div>
+  <div class="rule">
+    <strong>Südchinesisches Meer:</strong> Öl/Gas-Vorkommen + weltweit wichtigste Handelsrouten (1/3 des Welthandels)
+  </div>
+  <div class="rule">
+    <strong>Naher Osten:</strong> Größte Energiereserven der Welt + Drehscheibe zwischen 3 Kontinenten
+  </div>
+
+  <h3>Moderne Geopolitik</h3>
+  <p>Geopolitik geht heute weit über Territorium hinaus:</p>
+  <ul>
+    <li><strong>Cybermacht &amp; Desinformation:</strong> Angriffe auf Infrastruktur, Wahlen beeinflussen</li>
+    <li><strong>KI &amp; Daten:</strong> Wer die besten KI-Systeme hat, hat Macht</li>
+    <li><strong>Energiepolitik:</strong> Wer Energie liefert, hat politischen Einfluss (Russland → Europa)</li>
+    <li><strong>Seltene Rohstoffe:</strong> Lithium, Kobalt, Neodym für Batterien &amp; Rüstung</li>
+    <li><strong>Halbleiter/Chips:</strong> Taiwan (TSMC) = strategisch wichtigster Produzent</li>
+  </ul>
+
+  <h3>Karte: Arktis &amp; Grönland – Geopolitische Bedeutung</h3>
+  <div class="graph-container">
+    <svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:6px">
+  <rect width="700" height="380" fill="#daeaf5" rx="6"/>
+  <ellipse cx="350" cy="186" rx="160" ry="152" fill="#c8dff0" opacity="0.5"/>
+  <text x="350" y="190" font-size="10.5" fill="#1a3a6a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="700">ARKTISCHER OZEAN</text>
+  <circle cx="350" cy="178" r="5" fill="#1a3a6a"/>
+  <text x="350" y="169" font-size="8.5" fill="#1a3a6a" text-anchor="middle" font-family="Source Sans 3,sans-serif">Nordpol</text>
+  <ellipse cx="168" cy="133" rx="82" ry="98" fill="#d4edd8" stroke="#2a6e4e" stroke-width="2.5"/>
+  <text x="168" y="116" font-size="12" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="700">GRÖNLAND</text>
+  <text x="168" y="131" font-size="8.5" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif">(Königreich Dänemark)</text>
+  <text x="168" y="146" font-size="8.5" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif">★ Nuuk – Hauptstadt</text>
+  <text x="168" y="161" font-size="8.5" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif">~57.000 Einw. (Inuit)</text>
+  <text x="168" y="176" font-size="8.5" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif">Halbautonom seit 2009</text>
+  <ellipse cx="530" cy="130" rx="112" ry="62" fill="#fce8e4" stroke="#c9442a" stroke-width="2"/>
+  <text x="530" y="126" font-size="11" fill="#8b1a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="700">RUSSLAND</text>
+  <text x="530" y="141" font-size="8" fill="#8b1a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif">Nordflotte · Eisbrecher · Stützpunkte</text>
+  <ellipse cx="94" cy="278" rx="70" ry="44" fill="#fef3c7" stroke="#c9870a" stroke-width="2"/>
+  <text x="94" y="274" font-size="10.5" fill="#7a4a00" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="700">USA / Alaska</text>
+  <text x="94" y="289" font-size="8" fill="#7a4a00" text-anchor="middle" font-family="Source Sans 3,sans-serif">Militärbasis Thule</text>
+  <text x="94" y="303" font-size="8" fill="#7a4a00" text-anchor="middle" font-family="Source Sans 3,sans-serif">Trump will Grönland!</text>
+  <ellipse cx="415" cy="314" rx="65" ry="40" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="415" y="311" font-size="10" fill="#4c1d95" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="700">Norwegen / NATO</text>
+  <text x="415" y="326" font-size="8" fill="#4c1d95" text-anchor="middle" font-family="Source Sans 3,sans-serif">Wachsende Militärpräsenz</text>
+  <ellipse cx="583" cy="300" rx="68" ry="42" fill="#fce7f3" stroke="#9d174d" stroke-width="1.5"/>
+  <text x="583" y="298" font-size="10.5" fill="#831843" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="700">China</text>
+  <text x="583" y="313" font-size="8" fill="#831843" text-anchor="middle" font-family="Source Sans 3,sans-serif">Polar-Seidenstraße</text>
+  <path d="M 248,170 C 295,175 322,180 350,183" fill="none" stroke="#c9442a" stroke-width="2" stroke-dasharray="7,5"/>
+  <path d="M 350,183 C 408,168 460,152 505,143" fill="none" stroke="#c9442a" stroke-width="2" stroke-dasharray="7,5"/>
+  <text x="298" y="162" font-size="8" fill="#c9442a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Neue Handelsrouten (Klimawandel!)</text>
+  <rect x="8" y="8" width="210" height="130" fill="white" opacity="0.93" rx="4" stroke="#e0dcd6" stroke-width="0.8"/>
+  <text x="113" y="26" font-size="10.5" font-weight="700" fill="#2a6e4e" text-anchor="middle" font-family="Source Sans 3,sans-serif">Grönlands Rohstoffe</text>
+  <text x="20" y="43" font-size="9" fill="#222" font-family="Source Sans 3,sans-serif">⛏  Seltene Erden (Li, Ce, Nd …)</text>
+  <text x="20" y="57" font-size="9" fill="#222" font-family="Source Sans 3,sans-serif">🛢  Erdöl &amp; Erdgas</text>
+  <text x="20" y="71" font-size="9" fill="#222" font-family="Source Sans 3,sans-serif">🪨  Gold, Kupfer, Eisenerz</text>
+  <text x="20" y="85" font-size="9" fill="#222" font-family="Source Sans 3,sans-serif">☢  Uran (umstritten!)</text>
+  <text x="20" y="99" font-size="9" fill="#222" font-family="Source Sans 3,sans-serif">🐟  Fischerei (&gt;10 % Erwerbstätige)</text>
+  <text x="20" y="113" font-size="9" fill="#c9442a" font-family="Source Sans 3,sans-serif">⚠  Abbau ökologisch umstritten</text>
+  <text x="20" y="127" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">Wichtigste Einnahmequelle!</text>
+  <text x="350" y="374" font-size="8" fill="#999" text-anchor="middle" font-family="Source Sans 3,sans-serif">Schematische Polarkarte · Geopolitisch bedeutend durch Klimawandel</text>
+</svg>
+  </div>
+  <p class="graph-label">Schematische Polarkarte · Geopolitisch immer bedeutender durch Klimawandel</p>
+
+  <h3>Grönland – Steckbrief</h3>
+  <table>
+    <tr><th>Merkmal</th><th>Information</th></tr>
+    <tr><td>Lage</td><td>Nördlich des Polarkreises, arktische Region</td></tr>
+    <tr><td>Größe</td><td>Größte Insel der Welt</td></tr>
+    <tr><td>Bevölkerung</td><td>~57.000 Einwohner (überwiegend Inuit)</td></tr>
+    <tr><td>Hauptstadt</td><td>Nuuk</td></tr>
+    <tr><td>Politischer Status</td><td>Königreich Dänemark – <strong>seit 2009 halbautonom</strong></td></tr>
+    <tr><td>Wirtschaft</td><td>Fischerei (&gt;10 % der Erwerbstätigen), Rohstoffabbau, Tourismus</td></tr>
+    <tr><td>Langfristziel</td><td>Volle Unabhängigkeit von Dänemark</td></tr>
+    <tr><td>Klima</td><td>Arktisch · 80 % von Eisschild bedeckt</td></tr>
+  </table>
+
+  <h3>Rohstoffe Grönlands</h3>
+  <ul>
+    <li><strong>Seltene Erden</strong> (Lithium, Cer, Neodym …) – für Elektroautos, Rüstung, Tech unverzichtbar</li>
+    <li><strong>Erdöl &amp; Erdgas</strong> – riesige Vorkommen unter dem schmelzenden Meereseis</li>
+    <li><strong>Gold, Kupfer, Eisenerz</strong></li>
+    <li><strong>Uran</strong> – vorhanden, aber politisch höchst umstritten</li>
+    <li><strong>Fischerei:</strong> Wichtigste Einnahmequelle (Garnelen, Heilbutt)</li>
+  </ul>
+  <div class="warning">
+    <strong>⚠ Abbau ist ökologisch sehr umstritten!</strong> Radioaktive Abfälle beim Uranabbau, empfindliches Arktis-Ökosystem, mögliche Vertreibung der Inuit von ihrem angestammten Land.
+  </div>
+
+  <h3>Arktischer Rat (seit 1996)</h3>
+  <ul>
+    <li>Wichtigstes Kooperationsforum der 8 Arktisstaaten</li>
+    <li>Ziele: <strong>Umweltschutz</strong>, nachhaltige Entwicklung, Schutz der indigenen Bevölkerung</li>
+    <li>Wissenschaftliche Zusammenarbeit, Seenotrettungskoordination (SAR)</li>
+    <li>Politisch bedeutend, aber <em>militärisch nicht bindend</em></li>
+  </ul>
+
+  <h3>Militarisierung der Arktis</h3>
+  <div class="rule">
+    <strong>Russland:</strong> Nordflotte, U-Boote, zahlreiche Eisbrecher, Militärstützpunkte in der Arktis
+  </div>
+  <div class="rule">
+    <strong>China:</strong> „Polar-Seidenstraße", Kooperation mit Russland, Interesse an Rohstoffen
+  </div>
+  <div class="rule">
+    <strong>NATO:</strong> Finnland &amp; Schweden 2023/24 beigetreten → stärkere NATO-Präsenz in der Arktis
+  </div>
+  <div class="rule">
+    <strong>USA:</strong> Militärbasis Thule/Pituffik auf Grönland seit dem Zweiten Weltkrieg
+  </div>
+  <div class="warning">
+    <strong>Trump will Grönland kaufen/annektieren!</strong> Rohstoffe + strategische Lage zwischen USA, Europa und Russland → strategisch wertvoller als je zuvor durch Klimawandel.
+  </div>
+
+  <h3>Akteure &amp; Interessen – Übersichtstabelle</h3>
+  <table>
+    <tr><th>Akteur</th><th>Hauptinteressen in der Arktis / in Grönland</th></tr>
+    <tr><td>🇺🇸 USA</td><td>Rohstoffe, Militärbasis, Kontrolle der Nordroute, Trumps Annexionsidee</td></tr>
+    <tr><td>🇩🇰 Dänemark</td><td>Staatliche Einheit wahren, Schifffahrtsrouten, NATO-Balance</td></tr>
+    <tr><td>🇨🇳 China</td><td>Seltene Erden, Polar-Seidenstraße, Gegenpol zum Westen</td></tr>
+    <tr><td>🇷🇺 Russland</td><td>Arktische Dominanz, Nordflotte, Rohstoffe, Gegengewicht zur NATO</td></tr>
+    <tr><td>🟢 Grönland</td><td>Selbstbestimmung, wirtschaftliche Entwicklung, Unabhängigkeit</td></tr>
+    <tr><td>🇪🇺 EU</td><td>Umweltschutz, nachhaltige Rohstoffnutzung, Einfluss wahren</td></tr>
+    <tr><td>🏭 Konzerne</td><td>Rohstoffabbau (seltene Erden, Gold, Uran) → Gewinnmaximierung</td></tr>
+  </table>
+
+  <div class="tip">
+    <strong>Wichtige Prüfungsfragen:</strong><br>
+    <strong>Warum gewinnt Grönland durch den Klimawandel an Bedeutung?</strong> → Eis schmilzt → neue Schifffahrtsrouten frei + Zugang zu Rohstoffgebieten · Meeresspiegel könnte um bis zu 7 m steigen!<br><br>
+    <strong>Warum ist Rohstoffabbau umstritten?</strong> → Radioaktive Risiken (Uran), empfindliches Arktis-Ökosystem, Vertreibung der Inuit<br><br>
+    <strong>Warum will Trump Grönland?</strong> → Strategische Lage zwischen USA/Europa/Russland + riesige Rohstoffreserven + US-Militärbasis bereits vorhanden
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════ SEKTION 2 ══════════════════════════ -->
+<div class="section" id="s2">
+  <h2>2. Weltfrauentag &amp; Malala</h2>
+
+  <h3>Wichtige Begriffe</h3>
+  <div class="formula">
+    <strong>Feminismus:</strong> Bewegung &amp; Weltanschauung für die Gleichberechtigung aller Geschlechter in Politik, Wirtschaft und Gesellschaft.<br><br>
+    <strong>Femizid:</strong> Tötung einer Frau aufgrund ihres Geschlechts – aus Hass, Besitzdenken oder gesellschaftlichen Rollenvorstellungen.<br><br>
+    <strong>Gender Pay Gap:</strong> Frauen verdienen im Schnitt weniger als Männer – durch ungleiche Bezahlung, weniger Führungspositionen und unbezahlte Care-Arbeit.<br><br>
+    <strong>Care-Arbeit:</strong> Betreuung &amp; Pflege von Kindern, Familie, Haushalt – unbezahlt, wird überwiegend von Frauen geleistet.
+  </div>
+
+  <h3>Geschichte des Internationalen Frauentags</h3>
+  <table>
+    <tr><th>Jahr</th><th>Ereignis</th></tr>
+    <tr><td><strong>1908</strong></td><td>Erster nationaler Frauentag in den USA – Textilarbeiterinnen fordern bessere Bedingungen &amp; Wahlrecht</td></tr>
+    <tr><td><strong>1910</strong></td><td>Frauenkonferenz in Kopenhagen – <strong>Clara Zetkin</strong> schlägt internationalen Frauentag vor</td></tr>
+    <tr><td><strong>1911</strong></td><td>Erster internationaler Frauentag – Deutschland, Österreich, Dänemark, Schweiz</td></tr>
+    <tr><td><strong>1917</strong></td><td>Streik russischer Textilarbeiterinnen am 8. März → trägt zur Russischen Revolution bei</td></tr>
+    <tr><td><strong>seit 1977</strong></td><td>UN erkennt den 8. März offiziell an</td></tr>
+    <tr><td><strong>Heute</strong></td><td>Globale Aktionen für Gleichberechtigung, gegen Diskriminierung und Gewalt gegen Frauen</td></tr>
+  </table>
+
+  <h3>Malala Yousafzai</h3>
+  <div class="formula">
+    „Ein Kind, ein Lehrer, ein Buch und ein Stift können die Welt verändern."<br>
+    — <em>Malala Yousafzai, jüngste Friedensnobelpreisträgerin der Geschichte (2014)</em>
+  </div>
+  <ul>
+    <li>Kämpfte trotz Lebensgefahr für Mädchenbildung in Pakistan (Swat-Tal, Taliban-Kontrolle)</li>
+    <li>Als Teenager vom Taliban angeschossen – überlebte schwer verletzt</li>
+    <li>Gründete die <strong>Malala-Stiftung</strong> für weltweite Mädchenbildung</li>
+    <li><strong>Vision 2035:</strong> Jedes Mädchen und jeder Junge weltweit in der Schule</li>
+  </ul>
+
+  <h3>Gründe für Ungleichheit heute</h3>
+  <ul>
+    <li><strong>Lohnunterschiede:</strong> Frauen verdienen im Schnitt 13–18 % weniger (Österreich: ~18 %)</li>
+    <li><strong>Gläserne Decke:</strong> Weniger Frauen in Führungspositionen</li>
+    <li><strong>Care-Arbeit:</strong> Unbezahlt, hauptsächlich von Frauen geleistet</li>
+    <li><strong>Gewalt &amp; Femizid:</strong> Weltweit erschreckend häufig</li>
+    <li><strong>Bildungszugang:</strong> In vielen Ländern für Mädchen eingeschränkt</li>
+    <li><strong>Stereotypen:</strong> Prägen schon ab Kindheit und erzeugen Ungleichheit</li>
+  </ul>
+
+  <div class="tip">
+    <strong>Zusammenfassung:</strong> Formal-rechtlich sind Frauen in den meisten Ländern gleichberechtigt. In der Praxis – Lohn, Führungspositionen, Care-Arbeit, Gewalt – bestehen aber noch erhebliche Unterschiede.
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════ SEKTION 3 ══════════════════════════ -->
+<div class="section" id="s3">
+  <h2>3. Europa im Überblick</h2>
+
+  <h3>Geografische Grenzen</h3>
+  <div class="formula">
+    Grenze zu Asien: <strong>Ural-Gebirge → Ural-Fluss → Kaspisches Meer → Kaukasus → Bosporus</strong><br>
+    Grenze zu Afrika: <strong>Mittelmeer + Straße von Gibraltar</strong> (nur <strong>14 km</strong> breit!)<br>
+    Europa = westlicher Teil des Großkontinents <strong>Eurasien</strong> (~55 Mio. km², ~4,7 Mrd. Menschen)
+  </div>
+
+  <h3>Wichtige Bündnisse &amp; Organisationen</h3>
+  <table>
+    <tr><th>Organisation</th><th>Mitglieder</th><th>Charakter</th><th>Hauptsitz</th></tr>
+    <tr><td><strong>EU</strong></td><td>27</td><td>Politisch + wirtschaftlich</td><td>Brüssel</td></tr>
+    <tr><td><strong>EFTA</strong></td><td>4 (NO, IS, CH, LI)</td><td>Nur wirtschaftlich</td><td>Genf</td></tr>
+    <tr><td><strong>EWR</strong></td><td>EU + EFTA (ohne CH)</td><td>Freier Binnenmarkt</td><td>–</td></tr>
+    <tr><td><strong>NATO</strong></td><td>32 (inkl. FIN, SE)</td><td>Militärbündnis</td><td>Brüssel</td></tr>
+    <tr><td><strong>OSZE</strong></td><td>57</td><td>Sicherheit &amp; Stabilität</td><td><strong>Wien!</strong></td></tr>
+    <tr><td><strong>Eurasische Wirtschaftsunion</strong></td><td>5 (RU, BY …)</td><td>Gegengewicht zur EU</td><td>Moskau</td></tr>
+  </table>
+
+  <h3>Karte: EU-Mitglieder (2024)</h3>
+  <div class="graph-container">
+    <svg viewBox="0 0 830 560" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:6px">
+  <rect width="830" height="560" fill="#d4e8f0" rx="6"/>
+  <path d="M 180.5,486.0 L 218.5,486.0 L 266.0,465.8 L 294.5,418.5 L 332.5,391.5 L 380.0,371.2 L 399.0,418.5 L 418.0,459.0 L 437.0,432.0 L 456.0,452.2 L 475.0,475.2 L 494.0,461.7 L 503.5,472.5 L 532.0,475.2 L 541.5,452.2 L 541.5,418.5 L 532.0,391.5 L 551.0,351.0 L 570.0,344.2 L 589.0,351.0 L 589.0,364.5 L 608.0,351.0 L 627.0,337.5 L 646.0,407.7 L 655.5,364.5 L 665.0,310.5 L 693.5,243.0 L 788.5,229.5 L 836.0,189.0 L 788.5,121.5 L 722.0,81.0 L 646.0,40.5 L 579.5,40.5 L 551.0,27.0 L 513.0,13.5 L 437.0,13.5 L 408.5,27.0 L 380.0,94.5 L 361.0,121.5 L 313.5,189.0 L 285.0,216.0 L 266.0,283.5 L 285.0,283.5 L 294.5,276.8 L 313.5,256.5 L 342.0,229.5 L 351.5,229.5 L 361.0,202.5 L 380.0,216.0 L 408.5,243.0 L 437.0,243.0 L 456.0,236.2 L 475.0,216.0 L 494.0,195.8 L 494.0,168.8 L 503.5,162.0 L 532.0,135.0 L 551.0,135.0 L 579.5,94.5 L 579.5,40.5 L 437.0,13.5 L 408.5,27.0 L 380.0,94.5 L 361.0,121.5 L 313.5,189.0 L 285.0,216.0 L 266.0,283.5 L 266.0,297.0 L 247.0,310.5 L 223.2,324.0 L 218.5,337.5 L 247.0,378.0 L 247.0,384.8 L 190.0,384.8 L 180.5,405.0 L 180.5,445.5 L 180.5,472.5 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 211.8,297.0 L 237.5,290.2 L 266.0,278.1 L 282.1,278.1 L 268.9,256.5 L 237.5,229.5 L 247.0,217.4 L 228.0,195.8 L 218.5,182.2 L 237.5,179.5 L 247.0,199.8 L 256.5,222.8 L 237.5,251.1 L 237.5,276.8 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 171.0,276.8 L 190.0,276.8 L 209.0,267.3 L 209.0,252.5 L 190.0,239.0 L 171.0,253.8 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 38.0,114.8 L 66.5,81.0 L 142.5,81.0 L 133.0,108.0 L 57.0,114.8 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 384.8,465.8 L 408.5,469.8 L 413.2,459.0 L 389.5,455.0 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 346.8,425.2 L 356.2,425.2 L 356.2,411.8 L 346.8,411.8 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><circle cx="361.0" cy="283.5" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="368.0" y="286.5" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">D</text><circle cx="289.8" cy="344.2" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="296.8" y="347.2" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">F</text><circle cx="403.8" cy="330.8" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="410.8" y="333.8" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">A</text><circle cx="384.8" cy="391.5" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="391.8" y="394.5" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">I</text><circle cx="232.8" cy="432.0" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="239.8" y="435.0" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">E</text><circle cx="190.0" cy="438.8" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="197.0" y="441.8" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">P</text><circle cx="308.8" cy="290.2" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="315.8" y="293.2" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">B</text><circle cx="316.3" cy="263.2" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="323.3" y="266.2" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">NL</text><circle cx="323.9" cy="302.4" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="330.9" y="305.4" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">L</text><circle cx="451.2" cy="270.0" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="458.2" y="273.0" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">PL</text><circle cx="413.2" cy="299.7" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="420.2" y="302.7" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">CZ</text><circle cx="451.2" cy="314.5" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="458.2" y="317.5" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">SK</text><circle cx="446.5" cy="337.5" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="453.5" y="340.5" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">HU</text><circle cx="503.5" cy="353.7" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="510.5" y="356.7" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">RO</text><circle cx="508.2" cy="394.2" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="515.2" y="397.2" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">BG</text><circle cx="479.8" cy="438.8" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="486.8" y="441.8" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">GR</text><circle cx="418.0" cy="357.8" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="425.0" y="360.8" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">HR</text><circle cx="408.5" cy="349.6" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="415.5" y="352.6" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">SI</text><circle cx="361.0" cy="216.0" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="368.0" y="219.0" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">DK</text><circle cx="427.5" cy="135.0" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="434.5" y="138.0" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">SE</text><circle cx="513.0" cy="108.0" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="520.0" y="111.0" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">FI</text><circle cx="190.0" cy="256.5" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="197.0" y="259.5" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">IRL</text><circle cx="508.2" cy="179.5" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="515.2" y="182.5" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">EST</text><circle cx="498.8" cy="202.5" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="505.8" y="205.5" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">LV</text><circle cx="494.0" cy="222.8" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="501.0" y="225.8" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">LT</text><circle cx="402.8" cy="487.4" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="409.8" y="490.4" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">MT</text><circle cx="581.4" cy="498.1" r="5" fill="#2a4a8e" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="588.4" y="501.1" font-size="6.2" fill="#2a4a8e" font-family="Source Sans 3,sans-serif" font-weight="bold">CY</text><circle cx="361.0" cy="94.5" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="366.5" y="97.5" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">NO</text><circle cx="85.5" cy="94.5" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="91.0" y="97.5" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">IS</text><circle cx="342.0" cy="337.5" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="347.5" y="340.5" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">CH</text><circle cx="247.0" cy="243.0" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="252.5" y="246.0" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">UK</text><circle cx="741.0" cy="162.0" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="746.5" y="165.0" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">RU</text><circle cx="570.0" cy="310.5" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="575.5" y="313.5" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">UA</text><circle cx="532.0" cy="249.8" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="537.5" y="252.8" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">BY</text><circle cx="598.5" cy="445.5" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="604.0" y="448.5" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">TR</text><circle cx="465.5" cy="371.2" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="471.0" y="374.2" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">SRB</text><circle cx="456.0" cy="418.5" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="461.5" y="421.5" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">AL</text><circle cx="432.2" cy="378.0" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="437.8" y="381.0" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">BiH</text><circle cx="451.2" cy="394.2" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="456.8" y="397.2" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">MNE</text><circle cx="470.2" cy="411.8" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="475.8" y="414.8" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">MK</text><circle cx="536.8" cy="334.8" r="3.5" fill="#aaaaaa" stroke="white" stroke-width="0.6" opacity="0.9"/><text x="542.2" y="337.8" font-size="6.2" fill="#aaaaaa" font-family="Source Sans 3,sans-serif" font-weight="bold">MD</text><text x="190.0" y="283.5" font-size="7.5" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.7">Atlantik</text><text x="294.5" y="216.0" font-size="7.5" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.7">Nordsee</text><text x="437.0" y="182.2" font-size="7.5" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.7">Ostsee</text><text x="389.5" y="475.2" font-size="7.5" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.7">Mittelmeer</text><text x="570.0" y="378.0" font-size="7.5" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.7">Schwarzes Meer</text>
+  <rect x="10" y="490" width="210" height="56" fill="white" opacity="0.9" rx="4"/>
+  <circle cx="26" cy="506" r="6" fill="#2a4a8e"/><text x="38" y="510" font-size="9.5" fill="#333" font-family="Source Sans 3,sans-serif">EU-Mitglied (27)</text>
+  <circle cx="26" cy="526" r="4.5" fill="#aaa"/><text x="38" y="530" font-size="9.5" fill="#333" font-family="Source Sans 3,sans-serif">Nicht EU-Mitglied</text>
+  <text x="415" y="554" font-size="7.5" fill="#999" text-anchor="middle" font-family="Source Sans 3,sans-serif">Vereinfachte Darstellung · Punkte = geografische Lage · Stand 2024</text>
+</svg>
+  </div>
+  <p class="graph-label">27 EU-Mitglieder (blau) · Nicht-EU (grau) · Punkte = ungefähre Lage</p>
+
+  <h3>Politische Veränderungen seit 1989</h3>
+  <table>
+    <tr><th>Ereignis</th><th>Ergebnis</th></tr>
+    <tr><td>Dt. Wiedervereinigung 1990</td><td>DDR verschwindet; DDR-Gebiet = Teil der EU</td></tr>
+    <tr><td>Zerfall der Sowjetunion</td><td>15 souveräne Nachfolgestaaten (6 in Europa)</td></tr>
+    <tr><td>Zerfall Jugoslawiens</td><td>Slowenien, Kroatien, BiH, Serbien, Montenegro, N.Mazedonien, Kosovo</td></tr>
+    <tr><td>Tschechoslowakei 1993</td><td>Friedliche Trennung → Tschechien + Slowakei</td></tr>
+    <tr><td>Kosovo 2008</td><td>Unabhängigkeit erklärt – nicht von allen Staaten anerkannt</td></tr>
+    <tr><td>Ukraine seit 2022</td><td>Krim → Russland (2014); Donbas-Krieg; russischer Angriffskrieg seit Feb. 2022</td></tr>
+  </table>
+
+  <h3>Neutralität (Österreich, Schweiz)</h3>
+  <div class="rule">
+    Kein Beitritt zu Militärbündnissen · Keine aktive Unterstützung in Kriegen · Kein Durchmarsch fremder Truppen<br>
+    → Wichtige Rolle als <strong>internationaler Vermittler</strong> (Wien als Verhandlungsort der Weltpolitik)
+  </div>
+
+  <h3>Hauptstädte Europas – vollständige Lernliste</h3>
+  <table>
+    <tr><th>Land</th><th>Hauptstadt</th><th>EU?</th><th>Land</th><th>Hauptstadt</th><th>EU?</th></tr>
+    <tr><td>Deutschland</td><td>Berlin</td><td>✓</td><td>Polen</td><td>Warschau</td><td>✓</td></tr>
+    <tr><td>Österreich</td><td>Wien</td><td>✓</td><td>Tschechien</td><td>Prag</td><td>✓</td></tr>
+    <tr><td>Frankreich</td><td>Paris</td><td>✓</td><td>Slowakei</td><td>Bratislava</td><td>✓</td></tr>
+    <tr><td>Spanien</td><td>Madrid</td><td>✓</td><td>Ungarn</td><td>Budapest</td><td>✓</td></tr>
+    <tr><td>Portugal</td><td>Lissabon</td><td>✓</td><td>Rumänien</td><td>Bukarest</td><td>✓</td></tr>
+    <tr><td>Italien</td><td>Rom</td><td>✓</td><td>Bulgarien</td><td>Sofia</td><td>✓</td></tr>
+    <tr><td>Griechenland</td><td>Athen</td><td>✓</td><td>Kroatien</td><td>Zagreb</td><td>✓</td></tr>
+    <tr><td>Niederlande</td><td>Amsterdam</td><td>✓</td><td>Slowenien</td><td>Ljubljana</td><td>✓</td></tr>
+    <tr><td>Belgien</td><td>Brüssel</td><td>✓</td><td>Estland</td><td>Tallinn</td><td>✓</td></tr>
+    <tr><td>Luxemburg</td><td>Luxemburg</td><td>✓</td><td>Lettland</td><td>Riga</td><td>✓</td></tr>
+    <tr><td>Dänemark</td><td>Kopenhagen</td><td>✓</td><td>Litauen</td><td>Vilnius</td><td>✓</td></tr>
+    <tr><td>Schweden</td><td>Stockholm</td><td>✓</td><td>Malta</td><td>Valletta</td><td>✓</td></tr>
+    <tr><td>Finnland</td><td>Helsinki</td><td>✓</td><td>Zypern</td><td>Nikosia</td><td>✓</td></tr>
+    <tr><td>Irland</td><td>Dublin</td><td>✓</td><td>Großbritannien</td><td>London</td><td>✗ Brexit</td></tr>
+    <tr><td>Norwegen</td><td>Oslo</td><td>✗</td><td>Island</td><td>Reykjavík</td><td>✗</td></tr>
+    <tr><td>Schweiz</td><td>Bern</td><td>✗</td><td>Ukraine</td><td>Kiew</td><td>✗</td></tr>
+    <tr><td>Russland</td><td>Moskau</td><td>✗</td><td>Türkei</td><td>Ankara</td><td>✗</td></tr>
+    <tr><td>Serbien</td><td>Belgrad</td><td>✗</td><td>Albanien</td><td>Tirana</td><td>✗</td></tr>
+    <tr><td>Bosnien-H.</td><td>Sarajevo</td><td>✗</td><td>Montenegro</td><td>Podgorica</td><td>✗</td></tr>
+    <tr><td>N.Mazedonien</td><td>Skopje</td><td>✗</td><td>Moldau</td><td>Chișinău</td><td>✗</td></tr>
+    <tr><td>Kosovo</td><td>Pristina</td><td>✗</td><td>Belarus</td><td>Minsk</td><td>✗</td></tr>
+  </table>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════ SEKTION 4 ══════════════════════════ -->
+<div class="section" id="s4">
+  <h2>4. Topografie Europas</h2>
+
+  <h3>Karte: Topografie Europas</h3>
+  <div class="graph-container">
+    <svg viewBox="0 0 830 560" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:6px">
+  <rect width="830" height="560" fill="#d4e8f0" rx="6"/>
+  <path d="M 180.5,486.0 L 218.5,486.0 L 266.0,465.8 L 294.5,418.5 L 332.5,391.5 L 380.0,371.2 L 399.0,418.5 L 418.0,459.0 L 437.0,432.0 L 456.0,452.2 L 475.0,475.2 L 494.0,461.7 L 503.5,472.5 L 532.0,475.2 L 541.5,452.2 L 541.5,418.5 L 532.0,391.5 L 551.0,351.0 L 570.0,344.2 L 589.0,351.0 L 589.0,364.5 L 608.0,351.0 L 627.0,337.5 L 646.0,407.7 L 655.5,364.5 L 665.0,310.5 L 693.5,243.0 L 788.5,229.5 L 836.0,189.0 L 788.5,121.5 L 722.0,81.0 L 646.0,40.5 L 579.5,40.5 L 551.0,27.0 L 513.0,13.5 L 437.0,13.5 L 408.5,27.0 L 380.0,94.5 L 361.0,121.5 L 313.5,189.0 L 285.0,216.0 L 266.0,283.5 L 285.0,283.5 L 294.5,276.8 L 313.5,256.5 L 342.0,229.5 L 351.5,229.5 L 361.0,202.5 L 380.0,216.0 L 408.5,243.0 L 437.0,243.0 L 456.0,236.2 L 475.0,216.0 L 494.0,195.8 L 494.0,168.8 L 503.5,162.0 L 532.0,135.0 L 551.0,135.0 L 579.5,94.5 L 579.5,40.5 L 437.0,13.5 L 408.5,27.0 L 380.0,94.5 L 361.0,121.5 L 313.5,189.0 L 285.0,216.0 L 266.0,283.5 L 266.0,297.0 L 247.0,310.5 L 223.2,324.0 L 218.5,337.5 L 247.0,378.0 L 247.0,384.8 L 190.0,384.8 L 180.5,405.0 L 180.5,445.5 L 180.5,472.5 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 211.8,297.0 L 237.5,290.2 L 266.0,278.1 L 282.1,278.1 L 268.9,256.5 L 237.5,229.5 L 247.0,217.4 L 228.0,195.8 L 218.5,182.2 L 237.5,179.5 L 247.0,199.8 L 256.5,222.8 L 237.5,251.1 L 237.5,276.8 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 171.0,276.8 L 190.0,276.8 L 209.0,267.3 L 209.0,252.5 L 190.0,239.0 L 171.0,253.8 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 38.0,114.8 L 66.5,81.0 L 142.5,81.0 L 133.0,108.0 L 57.0,114.8 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 384.8,465.8 L 408.5,469.8 L 413.2,459.0 L 389.5,455.0 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 346.8,425.2 L 356.2,425.2 L 356.2,411.8 L 346.8,411.8 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 180.5,449.5 L 218.5,441.5 L 237.5,440.1" fill="none" stroke="#2a6e4e" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/><text x="218.5" y="437.5" font-size="6" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Tajo</text><path d="M 204.2,465.8 L 247.0,461.7" fill="none" stroke="#2a6e4e" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/><text x="247.0" y="457.7" font-size="6" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Guadalquivir</text><path d="M 232.8,398.2 L 266.0,415.8 L 277.4,421.2" fill="none" stroke="#2a6e4e" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/><text x="266.0" y="411.8" font-size="6" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Ebro</text><path d="M 261.2,388.8 L 277.4,364.5" fill="none" stroke="#2a6e4e" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/><text x="277.4" y="360.5" font-size="6" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Garonne</text><path d="M 247.0,333.5 L 270.8,334.8 L 281.2,334.8" fill="none" stroke="#2a6e4e" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/><text x="270.8" y="330.8" font-size="6" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Loire</text><path d="M 266.9,305.1 L 287.9,312.5" fill="none" stroke="#2a6e4e" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/><text x="287.9" y="308.5" font-size="6" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Seine</text><path d="M 331.6,353.7 L 311.6,384.8" fill="none" stroke="#2a6e4e" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/><text x="311.6" y="380.8" font-size="6" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Rhône</text><path d="M 341.1,369.9 L 381.9,365.9" fill="none" stroke="#2a6e4e" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/><text x="381.9" y="361.9" font-size="6" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Po</text><path d="M 261.2,276.8 L 277.4,278.1" fill="none" stroke="#2a6e4e" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/><text x="277.4" y="274.1" font-size="6" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Themse</text><path d="M 399.0,283.5 L 348.7,244.4" fill="none" stroke="#2a6e4e" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/><text x="348.7" y="240.4" font-size="6" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Elbe</text><path d="M 465.5,290.2 L 456.0,243.0" fill="none" stroke="#2a6e4e" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/><text x="456.0" y="239.0" font-size="6" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Weichsel</text><path d="M 617.5,330.8 L 673.6,332.1" fill="none" stroke="#2a6e4e" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/><text x="673.6" y="328.1" font-size="6" fill="#1a4a30" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic">Don</text><polygon points="365.8,335.2 358.8,345.2 372.8,345.2" fill="#b44a2f" opacity="0.8"/><text x="365.8" y="355.2" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Alpen</text><polygon points="261.2,385.2 254.2,395.2 268.2,395.2" fill="#b44a2f" opacity="0.8"/><text x="261.2" y="405.2" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Pyrenäen</text><polygon points="484.5,308.2 477.5,318.2 491.5,318.2" fill="#b44a2f" opacity="0.8"/><text x="484.5" y="328.2" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Karpaten</text><polygon points="394.2,382.5 387.2,392.5 401.2,392.5" fill="#b44a2f" opacity="0.8"/><text x="394.2" y="402.5" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Apenninen</text><polygon points="232.8,459.5 225.8,469.5 239.8,469.5" fill="#b44a2f" opacity="0.8"/><text x="232.8" y="479.5" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Sierra Nevada</text><polygon points="679.2,389.2 672.2,399.2 686.2,399.2" fill="#b44a2f" opacity="0.8"/><text x="679.2" y="409.2" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Kaukasus</text><polygon points="294.5,348.8 287.5,358.8 301.5,358.8" fill="#b44a2f" opacity="0.8"/><text x="294.5" y="368.8" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Zentralmassiv</text><polygon points="408.5,85.5 401.5,95.5 415.5,95.5" fill="#b44a2f" opacity="0.8"/><text x="408.5" y="105.5" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Skand.Geb.</text><polygon points="427.5,375.8 420.5,385.8 434.5,385.8" fill="#b44a2f" opacity="0.8"/><text x="427.5" y="395.8" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Dinar.Geb.</text><polygon points="508.2,389.2 501.2,399.2 515.2,399.2" fill="#b44a2f" opacity="0.8"/><text x="508.2" y="409.2" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Balkangeb.</text><polygon points="589.0,456.8 582.0,466.8 596.0,466.8" fill="#b44a2f" opacity="0.8"/><text x="589.0" y="476.8" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Taurus</text><polygon points="223.2,193.5 216.2,203.5 230.2,203.5" fill="#b44a2f" opacity="0.8"/><text x="223.2" y="213.5" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Highlands</text><polygon points="668.8,376.8 663.8,387.8 673.8,387.8" fill="#7c3aed" opacity="0.9"/><text x="668.8" y="399.8" font-size="6" fill="#4c1d95" text-anchor="middle" font-family="Source Sans 3,sans-serif">▲Elbrus</text><polygon points="331.3,343.3 326.3,354.3 336.3,354.3" fill="#7c3aed" opacity="0.9"/><text x="331.3" y="366.3" font-size="6" fill="#4c1d95" text-anchor="middle" font-family="Source Sans 3,sans-serif">▲Mont Blanc</text><polygon points="408.5,452.4 403.5,463.4 413.5,463.4" fill="#7c3aed" opacity="0.9"/><text x="408.5" y="475.4" font-size="6" fill="#4c1d95" text-anchor="middle" font-family="Source Sans 3,sans-serif">▲Ätna</text><polygon points="403.1,410.9 398.1,421.9 408.1,421.9" fill="#7c3aed" opacity="0.9"/><text x="403.1" y="433.9" font-size="6" fill="#4c1d95" text-anchor="middle" font-family="Source Sans 3,sans-serif">▲Vesuv</text><polygon points="478.3,420.9 473.3,431.9 483.3,431.9" fill="#7c3aed" opacity="0.9"/><text x="478.3" y="443.9" font-size="6" fill="#4c1d95" text-anchor="middle" font-family="Source Sans 3,sans-serif">▲Olymp</text><text x="190.0" y="283.5" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Atlantik</text><text x="294.5" y="216.0" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Nordsee</text><text x="437.0" y="182.2" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Ostsee</text><text x="399.0" y="472.5" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Mittelmeer</text><text x="570.0" y="378.0" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Schwarzes Meer</text><text x="256.5" y="290.2" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Ärmelkanal</text><text x="380.0" y="425.2" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Tyrrhen.Meer</text><text x="413.2" y="398.2" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Adriat.Meer</text><text x="503.5" y="445.5" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Ägäisches Meer</text><text x="541.5" y="417.1" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Bosporus</text><text x="218.5" y="351.0" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Golf v.Biskaya</text><text x="216.6" y="488.7" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Gibraltar</text><text x="313.5" y="54.0" font-size="7" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-style="italic" opacity="0.75">Europ.Nordmeer</text><ellipse cx="384.8" cy="178.2" rx="6" ry="3.5" fill="#5b9bd5" opacity="0.85"/><text x="384.8" y="190.2" font-size="5.5" fill="#1a3a6a" text-anchor="middle" font-family="Source Sans 3,sans-serif">Vänersee</text><ellipse cx="527.2" cy="185.0" rx="6" ry="3.5" fill="#5b9bd5" opacity="0.85"/><text x="527.2" y="197.0" font-size="5.5" fill="#1a3a6a" text-anchor="middle" font-family="Source Sans 3,sans-serif">Peipussee</text><ellipse cx="560.5" cy="148.5" rx="6" ry="3.5" fill="#5b9bd5" opacity="0.85"/><text x="560.5" y="160.5" font-size="5.5" fill="#1a3a6a" text-anchor="middle" font-family="Source Sans 3,sans-serif">Ladogasee</text><ellipse cx="522.5" cy="135.0" rx="6" ry="3.5" fill="#5b9bd5" opacity="0.85"/><text x="522.5" y="147.0" font-size="5.5" fill="#1a3a6a" text-anchor="middle" font-family="Source Sans 3,sans-serif">Finn.Seenpl.</text><ellipse cx="437.0" cy="338.9" rx="6" ry="3.5" fill="#5b9bd5" opacity="0.85"/><text x="437.0" y="350.9" font-size="5.5" fill="#1a3a6a" text-anchor="middle" font-family="Source Sans 3,sans-serif">Plattensee</text><circle cx="589.0" cy="360.5" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="594.0" y="363.5" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Krim</text><circle cx="294.5" cy="436.0" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="299.5" y="439.0" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Mallorca</text><circle cx="351.5" cy="402.3" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="356.5" y="405.3" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Korsika</text><circle cx="352.4" cy="430.6" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="357.4" y="433.6" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Sardinien</text><circle cx="399.9" cy="464.4" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="404.9" y="467.4" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Sizilien</text><circle cx="403.8" cy="487.4" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="408.8" y="490.4" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Malta</text><circle cx="532.0" cy="480.6" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="537.0" y="483.6" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Rhodos</text><circle cx="579.5" cy="498.1" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="584.5" y="501.1" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Zypern</text><circle cx="584.2" cy="60.8" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="589.2" y="63.8" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Kola-HI</text><circle cx="356.2" cy="213.3" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="361.2" y="216.3" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Jütland</text><circle cx="199.5" cy="135.0" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="204.5" y="138.0" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Färöer</text><circle cx="114.0" cy="587.2" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="119.0" y="590.2" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Kanar.Inseln</text><circle cx="479.8" cy="468.5" r="2.5" fill="#2a6e4e" opacity="0.9"/><text x="484.8" y="471.5" font-size="5.2" fill="#1a4a30" font-family="Source Sans 3,sans-serif">Peloponnes</text>
+  <rect x="8" y="470" width="250" height="82" fill="white" opacity="0.92" rx="4"/>
+  <polygon points="18,486 12,494 24,494" fill="#b44a2f" opacity="0.8"/>
+  <text x="32" y="493" font-size="9" fill="#333" font-family="Source Sans 3,sans-serif">Gebirge / Mittelgebirge</text>
+  <polygon points="18,507 12,515 24,515" fill="#7c3aed"/>
+  <text x="32" y="514" font-size="9" fill="#333" font-family="Source Sans 3,sans-serif">Gipfel (Ätna, Vesuv, Olymp, Elbrus, Mont Blanc)</text>
+  <line x1="12" y1="526" x2="24" y2="526" stroke="#2a6e4e" stroke-width="2.5"/>
+  <text x="32" y="530" font-size="9" fill="#333" font-family="Source Sans 3,sans-serif">Flüsse (12 lernen!)</text>
+  <ellipse cx="17" cy="543" rx="5" ry="3" fill="#5b9bd5"/>
+  <circle cx="27" cy="543" r="2.5" fill="#2a6e4e"/>
+  <text x="35" y="547" font-size="9" fill="#333" font-family="Source Sans 3,sans-serif">Seen (5) · Inseln/HI (14 – grün)</text>
+  <text x="415" y="556" font-size="7.5" fill="#999" text-anchor="middle" font-family="Source Sans 3,sans-serif">Vereinfachte Schematik – Positionen geografisch angenähert</text>
+</svg>
+  </div>
+  <p class="graph-label">Braune Dreiecke = Gebirge · Violett = Gipfel · Grün = Flüsse · Blau = Seen · Dunkelgrün-Punkte = Inseln/Halbinseln</p>
+
+  <h3>12 Flüsse – lernen!</h3>
+  <table>
+    <tr><th>#</th><th>Fluss</th><th>Region / Mündung</th><th>Besonderheit</th></tr>
+    <tr><td>1</td><td><strong>Tajo</strong></td><td>Iberische Halbinsel → Atlantik (Lissabon)</td><td>Längster Fluss der IB</td></tr>
+    <tr><td>2</td><td><strong>Guadalquivir</strong></td><td>Südspanien → Atlantik (Sevilla)</td><td>—</td></tr>
+    <tr><td>3</td><td><strong>Ebro</strong></td><td>Nordspanien → Mittelmeer</td><td>—</td></tr>
+    <tr><td>4</td><td><strong>Garonne</strong></td><td>SW-Frankreich → Atlantik</td><td>—</td></tr>
+    <tr><td>5</td><td><strong>Loire</strong></td><td>Zentralfrankreich → Atlantik</td><td>Längster Fluss F</td></tr>
+    <tr><td>6</td><td><strong>Seine</strong></td><td>N-Frankreich → Ärmelkanal</td><td>Durch Paris</td></tr>
+    <tr><td>7</td><td><strong>Rhône</strong></td><td>Alpen → Mittelmeer</td><td>Entspringt in CH</td></tr>
+    <tr><td>8</td><td><strong>Po</strong></td><td>Norditalien → Adriatisches Meer</td><td>Dammfluss! 650 km</td></tr>
+    <tr><td>9</td><td><strong>Themse</strong></td><td>England → Nordsee</td><td>Durch London</td></tr>
+    <tr><td>10</td><td><strong>Elbe</strong></td><td>Böhmen → Nordsee (Hamburg)</td><td>—</td></tr>
+    <tr><td>11</td><td><strong>Weichsel</strong></td><td>Polen → Ostsee (Danzig)</td><td>Längster Fluss PL</td></tr>
+    <tr><td>12</td><td><strong>Don</strong></td><td>Russland → Asowsches Meer</td><td>—</td></tr>
+  </table>
+
+  <h3>Gebirge &amp; Mittelgebirge (8 – lernen!)</h3>
+  <table>
+    <tr><th>Name</th><th>Lage</th><th>Typ</th></tr>
+    <tr><td><strong>Sierra Nevada</strong></td><td>Südspanien</td><td>Hochgebirge (Mulhacén 3.479 m)</td></tr>
+    <tr><td><strong>Zentralmassiv</strong></td><td>Südfrankreich</td><td>Mittelgebirge</td></tr>
+    <tr><td><strong>Apenninen</strong></td><td>Italien (Halbinsel)</td><td>Mittelgebirge/Hochgebirge</td></tr>
+    <tr><td><strong>Dinarisches Gebirge</strong></td><td>Westbalkan (Kroatien, BiH …)</td><td>Hochgebirge</td></tr>
+    <tr><td><strong>Pindos</strong></td><td>Griechenland</td><td>Mittelgebirge</td></tr>
+    <tr><td><strong>Balkangebirge</strong></td><td>Bulgarien</td><td>Mittelgebirge</td></tr>
+    <tr><td><strong>Taurus</strong></td><td>Südtürkei</td><td>Hochgebirge</td></tr>
+    <tr><td><strong>Highlands</strong></td><td>Schottland (UK)</td><td>Mittelgebirge</td></tr>
+  </table>
+
+  <h3>Gipfel – 4 lernen!</h3>
+  <div class="formula">
+    <strong>Elbrus</strong> (5.642 m) – Kaukasus, Russland → <strong>Höchster Berg Europas!</strong><br>
+    <strong>Mont Blanc</strong> (4.808 m) – Alpen, Frankreich/Italien<br>
+    <strong>Ätna</strong> (3.357 m) – Sizilien, Italien → aktiver Vulkan!<br>
+    <strong>Vesuv</strong> (1.281 m) – Neapel, Italien → zerstörte Pompeji 79 n.Chr.<br>
+    <strong>Olymp</strong> (2.918 m) – Griechenland → Sitz der griechischen Götter
+  </div>
+
+  <h3>Seen – 5 lernen!</h3>
+  <table>
+    <tr><th>See</th><th>Lage</th></tr>
+    <tr><td><strong>Vänersee</strong></td><td>Schweden</td></tr>
+    <tr><td><strong>Peipussee</strong></td><td>Estland / Russland</td></tr>
+    <tr><td><strong>Finnische Seenplatte</strong></td><td>Finnland</td></tr>
+    <tr><td><strong>Ladogasee</strong></td><td>Russland (größter See Europas)</td></tr>
+    <tr><td><strong>Plattensee (Balaton)</strong></td><td>Ungarn (größter See M-Europas)</td></tr>
+  </table>
+
+  <h3>Meere &amp; Meerengen (A–L) – lernen!</h3>
+  <table>
+    <tr><th>Bez.</th><th>Name</th><th>Lage</th></tr>
+    <tr><td>A</td><td>Nordsee</td><td>Deutschland, Niederlande, GB, DK, Norwegen</td></tr>
+    <tr><td>B</td><td>Ärmelkanal</td><td>GB – Frankreich (21 km bei Dover)</td></tr>
+    <tr><td>C</td><td>Golf von Biskaya</td><td>W-Frankreich – N-Spanien</td></tr>
+    <tr><td>D</td><td>Straße von Gibraltar</td><td>Spanien – Marokko (<strong>nur 14 km!</strong>)</td></tr>
+    <tr><td>E</td><td>Tyrrhenisches Meer</td><td>W-Italien, Sardinien, Korsika</td></tr>
+    <tr><td>F</td><td>Adriatisches Meer</td><td>Italien – Balkanhalbinsel</td></tr>
+    <tr><td>G</td><td>Ionisches Meer</td><td>Griechenland – Italien</td></tr>
+    <tr><td>H</td><td>Ägäisches Meer</td><td>Griechenland – Türkei</td></tr>
+    <tr><td>I</td><td>Bosporus</td><td>Istanbul – verbindet Schwarzes Meer mit Mittelmeer</td></tr>
+    <tr><td>J</td><td>Asowsches Meer</td><td>Ukraine / Russland</td></tr>
+    <tr><td>K</td><td>Ostsee</td><td>Nordeuropa (fast Binnenmeer)</td></tr>
+    <tr><td>L</td><td>Europäisches Nordmeer</td><td>Norwegen – Island – Spitzbergen</td></tr>
+  </table>
+
+  <h3>Inseln &amp; Halbinseln (a–n) – lernen!</h3>
+  <table>
+    <tr><th>Bez.</th><th>Name</th><th>Bez.</th><th>Name</th></tr>
+    <tr><td>a</td><td>Iberische Halbinsel (Spanien + Portugal)</td><td>h</td><td>Zypern</td></tr>
+    <tr><td>b</td><td>Mallorca / Balearen (Spanien)</td><td>i</td><td>Krim (Ukraine / völkerrechtl. umstritten)</td></tr>
+    <tr><td>c</td><td>Korsika (Frankreich)</td><td>j</td><td>Kola-Halbinsel (Russland, Murmansk)</td></tr>
+    <tr><td>d</td><td>Apennin-Halbinsel (Italien)</td><td>k</td><td>Jütland / Dänische Halbinsel</td></tr>
+    <tr><td>e</td><td>Malta</td><td>l</td><td>Skandinavische Halbinsel</td></tr>
+    <tr><td>f</td><td>Peloponnes (S-Griechenland)</td><td>m</td><td>Färöer-Inseln (Dänemark)</td></tr>
+    <tr><td>g</td><td>Rhodos (Griechenland)</td><td>n</td><td>Kanarische Inseln (Spanien)</td></tr>
+  </table>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════ SEKTION 5 ══════════════════════════ -->
+<div class="section" id="s5">
+  <h2>5. Naturräume Europas</h2>
+
+  <div class="formula">
+    <strong>Naturraum:</strong> Geografischer Raum mit einheitlichen Naturfaktoren (Klima, Relief, Boden, Wasser, Vegetation) – vom Menschen unterschiedlich genutzt.<br><br>
+    <strong>Landschaft:</strong> Teil der Erdoberfläche, der sich im äußeren Erscheinungsbild von seiner Umgebung abhebt.
+  </div>
+
+  <h3>Karte: Naturräume Europas</h3>
+  <div class="graph-container">
+    <svg viewBox="0 0 830 563" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:6px">
+  <rect width="830" height="563" fill="#daeaf5" rx="6"/>
+  <path d="M 180.5,486.0 L 218.5,486.0 L 266.0,465.8 L 294.5,418.5 L 332.5,391.5 L 380.0,371.2 L 399.0,418.5 L 418.0,459.0 L 437.0,432.0 L 456.0,452.2 L 475.0,475.2 L 494.0,461.7 L 503.5,472.5 L 532.0,475.2 L 541.5,452.2 L 541.5,418.5 L 532.0,391.5 L 551.0,351.0 L 570.0,344.2 L 589.0,351.0 L 589.0,364.5 L 608.0,351.0 L 627.0,337.5 L 646.0,407.7 L 655.5,364.5 L 665.0,310.5 L 693.5,243.0 L 788.5,229.5 L 836.0,189.0 L 788.5,121.5 L 722.0,81.0 L 646.0,40.5 L 579.5,40.5 L 551.0,27.0 L 513.0,13.5 L 437.0,13.5 L 408.5,27.0 L 380.0,94.5 L 361.0,121.5 L 313.5,189.0 L 285.0,216.0 L 266.0,283.5 L 285.0,283.5 L 294.5,276.8 L 313.5,256.5 L 342.0,229.5 L 351.5,229.5 L 361.0,202.5 L 380.0,216.0 L 408.5,243.0 L 437.0,243.0 L 456.0,236.2 L 475.0,216.0 L 494.0,195.8 L 494.0,168.8 L 503.5,162.0 L 532.0,135.0 L 551.0,135.0 L 579.5,94.5 L 579.5,40.5 L 437.0,13.5 L 408.5,27.0 L 380.0,94.5 L 361.0,121.5 L 313.5,189.0 L 285.0,216.0 L 266.0,283.5 L 266.0,297.0 L 247.0,310.5 L 223.2,324.0 L 218.5,337.5 L 247.0,378.0 L 247.0,384.8 L 190.0,384.8 L 180.5,405.0 L 180.5,445.5 L 180.5,472.5 Z" fill="#f8f5ee" stroke="#bbb" stroke-width="0.6"/><path d="M 211.8,297.0 L 237.5,290.2 L 266.0,278.1 L 282.1,278.1 L 268.9,256.5 L 237.5,229.5 L 247.0,217.4 L 228.0,195.8 L 218.5,182.2 L 237.5,179.5 L 247.0,199.8 L 256.5,222.8 L 237.5,251.1 L 237.5,276.8 Z" fill="#f8f5ee" stroke="#bbb" stroke-width="0.6"/><path d="M 171.0,276.8 L 190.0,276.8 L 209.0,267.3 L 209.0,252.5 L 190.0,239.0 L 171.0,253.8 Z" fill="#f8f5ee" stroke="#bbb" stroke-width="0.6"/><path d="M 38.0,114.8 L 66.5,81.0 L 142.5,81.0 L 133.0,108.0 L 57.0,114.8 Z" fill="#f8f5ee" stroke="#bbb" stroke-width="0.6"/><polygon points="247.0,283.5 408.5,243.0 456.0,243.0 475.0,256.5 456.0,270.0 408.5,270.0 342.0,256.5 285.0,270.0 247.0,283.5" fill="#d4e8f5" stroke="#93c5fd" stroke-width="0.8" opacity="0.9"/><polygon points="456.0,270.0 503.5,270.0 598.5,229.5 741.0,229.5 741.0,297.0 598.5,364.5 503.5,337.5 475.0,310.5 456.0,270.0" fill="#d4e8f5" stroke="#93c5fd" stroke-width="0.8" opacity="0.9"/><polygon points="332.5,371.2 384.8,367.2 394.2,357.8 342.0,357.8" fill="#d4e8f5" stroke="#93c5fd" stroke-width="0.8" opacity="0.9"/><polygon points="247.0,337.5 285.0,337.5 304.0,310.5 285.0,310.5 247.0,310.5" fill="#d4edd8" stroke="#86efac" stroke-width="0.8" opacity="0.9"/><polygon points="361.0,337.5 408.5,337.5 408.5,321.3 361.0,321.3" fill="#d4edd8" stroke="#86efac" stroke-width="0.8" opacity="0.9"/><polygon points="418.0,351.0 484.5,351.0 484.5,310.5 446.5,310.5 418.0,317.2" fill="#d4edd8" stroke="#86efac" stroke-width="0.8" opacity="0.9"/><polygon points="266.0,324.0 332.5,324.0 351.5,330.8 351.5,351.0 332.5,357.8 294.5,337.5 266.0,324.0" fill="#f5efc8" stroke="#e8d56a" stroke-width="0.8" opacity="0.9"/><polygon points="228.0,297.0 294.5,297.0 313.5,270.0 294.5,270.0 228.0,283.5" fill="#f5efc8" stroke="#e8d56a" stroke-width="0.8" opacity="0.9"/><polygon points="285.0,297.0 266.0,283.5 294.5,283.5 342.0,270.0 389.5,270.0 399.0,290.2 389.5,310.5 351.5,317.2 332.5,324.0 304.0,297.0 285.0,297.0" fill="#f5d5b0" stroke="#fb923c" stroke-width="0.8" opacity="0.9"/><polygon points="337.2,330.8 348.7,330.8 348.7,317.2 337.2,317.2" fill="#f5d5b0" stroke="#fb923c" stroke-width="0.8" opacity="0.9"/><polygon points="292.6,371.2 305.9,371.2 305.9,353.7 292.6,353.7" fill="#f5d5b0" stroke="#fb923c" stroke-width="0.8" opacity="0.9"/><polygon points="408.5,391.5 475.0,391.5 484.5,378.0 437.0,378.0 408.5,378.0" fill="#f5d5b0" stroke="#fb923c" stroke-width="0.8" opacity="0.9"/><polygon points="218.5,202.5 242.2,202.5 242.2,178.2 218.5,178.2" fill="#f5d5b0" stroke="#fb923c" stroke-width="0.8" opacity="0.9"/><polygon points="323.0,337.5 361.0,337.5 389.5,337.5 408.5,344.2 399.0,357.8 361.0,357.8 342.0,357.8 323.0,351.0" fill="#f5b8b0" stroke="#f87171" stroke-width="0.8" opacity="0.9"/><polygon points="247.0,388.8 294.5,398.2 294.5,384.8 256.5,384.8" fill="#f5b8b0" stroke="#f87171" stroke-width="0.8" opacity="0.9"/><polygon points="229.9,472.5 244.2,472.5 244.2,464.4 229.9,464.4" fill="#f5b8b0" stroke="#f87171" stroke-width="0.8" opacity="0.9"/><polygon points="437.0,310.5 475.0,310.5 503.5,324.0 494.0,337.5 456.0,330.8" fill="#f5b8b0" stroke="#f87171" stroke-width="0.8" opacity="0.9"/><polygon points="389.5,135.0 437.0,54.0 456.0,54.0 408.5,135.0" fill="#f5b8b0" stroke="#f87171" stroke-width="0.8" opacity="0.9"/><polygon points="627.0,432.0 684.0,432.0 684.0,391.5 627.0,391.5" fill="#f5b8b0" stroke="#f87171" stroke-width="0.8" opacity="0.9"/><text x="361.0" y="345.6" font-size="8" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">ALPEN</text><text x="261.2" y="391.5" font-size="7" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Pyrenäen</text><text x="475.0" y="317.2" font-size="6.5" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Karpaten</text><text x="237.5" y="468.5" font-size="6" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Sierra Nevada</text><text x="655.5" y="411.8" font-size="6.5" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Kaukasus</text><text x="418.0" y="91.8" font-size="6.5" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Skand.</text><text x="418.0" y="100.8" font-size="6.5" fill="#8b2a1a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="bold">Gebirge</text><text x="342.0" y="322.6" font-size="6" fill="#8b3a0a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="600">Schwarzwald</text><text x="299.2" y="363.1" font-size="6" fill="#8b3a0a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="600">Zentralmassiv</text><text x="232.8" y="189.0" font-size="6" fill="#8b3a0a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="600">Brit.Hochland</text><text x="427.5" y="384.8" font-size="5.5" fill="#8b3a0a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="600">Dinar.Geb.</text><text x="275.5" y="321.3" font-size="6.5" fill="#1a5a2a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="600">Pariser Becken</text><text x="384.8" y="329.4" font-size="6" fill="#1a5a2a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="600">N.Alpenvorland</text><text x="451.2" y="332.1" font-size="6" fill="#1a5a2a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="600">Pannon.Becken</text><text x="342.0" y="260.5" font-size="6.5" fill="#1a3a6a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="600">Nordeurop.Tiefebene</text><text x="617.5" y="283.5" font-size="7" fill="#1a3a6a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="600">Osteurop.Ebene</text><text x="365.8" y="363.1" font-size="6" fill="#1a3a6a" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="600">Poebene</text>
+  <rect x="6" y="456" width="264" height="102" fill="white" opacity="0.93" rx="4"/>
+  <text x="137" y="470" font-size="9.5" font-weight="700" fill="#333" text-anchor="middle" font-family="Source Sans 3,sans-serif">Naturräume Europas</text>
+  <rect x="10" y="464" width="18" height="15" fill="#f5b8b0" rx="3" stroke="#ccc" stroke-width="0.8"/><text x="34" y="476" font-size="9.5" fill="#222" font-family="Source Sans 3,sans-serif">Hochgebirge (über 2.000 m)</text><rect x="10" y="483" width="18" height="15" fill="#f5d5b0" rx="3" stroke="#ccc" stroke-width="0.8"/><text x="34" y="495" font-size="9.5" fill="#222" font-family="Source Sans 3,sans-serif">Mittelgebirge (bis ~1.800 m)</text><rect x="10" y="502" width="18" height="15" fill="#f5efc8" rx="3" stroke="#ccc" stroke-width="0.8"/><text x="34" y="514" font-size="9.5" fill="#222" font-family="Source Sans 3,sans-serif">Hügel- und Plattenland</text><rect x="10" y="521" width="18" height="15" fill="#d4edd8" rx="3" stroke="#ccc" stroke-width="0.8"/><text x="34" y="533" font-size="9.5" fill="#222" font-family="Source Sans 3,sans-serif">Vorländer und Becken</text><rect x="10" y="540" width="18" height="15" fill="#d4e8f5" rx="3" stroke="#ccc" stroke-width="0.8"/><text x="34" y="552" font-size="9.5" fill="#222" font-family="Source Sans 3,sans-serif">Flachländer und Ebenen</text>
+  <text x="415" y="558" font-size="7.5" fill="#999" text-anchor="middle" font-family="Source Sans 3,sans-serif">Schematisch nach Lehrbuch S. 175 · Zonengrenzen vereinfacht</text>
+</svg>
+  </div>
+  <p class="graph-label">Schematisch nach Lehrbuch S. 175 · Rot = Hochgebirge · Orange = Mittelgebirge · Beige = Hügel · Grün = Becken · Blau = Ebenen</p>
+
+  <h3>4 Geologische Bausteine Europas</h3>
+  <table>
+    <tr><th>Baustein</th><th>Alter</th><th>Entstehung</th><th>Gebiete &amp; Rohstoffe</th></tr>
+    <tr><td><strong>Ureuropa</strong></td><td>&gt;3 Mrd. J.</td><td>Älteste Gesteine, kaum verändert</td><td>Baltischer Schild, Osteurop. Tafel · Erz, Steinkohle, Öl/Gas, seltene Metalle (Kola-HI)</td></tr>
+    <tr><td><strong>Paläoeuropa</strong></td><td>~500 Mio. J.</td><td>Kaledonische Gebirgsbildung</td><td>Skandinavien, Brit. Inseln · Steinkohle Mittelengland, Öl/Gas Nordsee</td></tr>
+    <tr><td><strong>Mesoeuropa</strong></td><td>~400 Mio. J.</td><td>Variskische Gebirgsbildung</td><td>Mitteleurop. Gebirge · Steinkohle Ruhr/Saar/Schlesien, Eisenerz Lothringen</td></tr>
+    <tr><td><strong>Neoeuropa</strong></td><td>~100 Mio. J.</td><td>Alpidische Gebirgsbildung – <strong>noch aktiv!</strong></td><td>Alpen, Karpaten, Apenninen, Kaukasus · Öl/Gas Österreich/Rumänien, Kalkstein</td></tr>
+  </table>
+
+  <h3>🔴 Hochgebirge (über 2.000 m)</h3>
+  <div class="rule">
+    <strong>Merkmale:</strong> Stark zerklüftete Formen · ausgeprägte Höhenstufen der Vegetation · entstand durch Plattentektonik + Gletscherformung
+  </div>
+  <ul>
+    <li><strong>Beispiele:</strong> Alpen, Pyrenäen, Karpaten, Sierra Nevada, Kaukasus, Skandinavische Gebirge</li>
+    <li>Alpen: intensiv touristisch genutzt – über 500 Mio. Übernachtungen pro Jahr</li>
+    <li>Auch forstwirtschaftlich &amp; energiewirtschaftlich genutzt (Wasserkraft)</li>
+    <li>Mulhacén (Sierra Nevada): 3.479 m – höchster Punkt Spaniens</li>
+  </ul>
+
+  <h3>🟠 Mittelgebirge (bis ca. 1.800 m)</h3>
+  <div class="rule">
+    <strong>Merkmale:</strong> Sanfte, gerundete Formen durch lang andauernde Erosion · wenig/keine Vergletscherung heute
+  </div>
+  <ul>
+    <li><strong>Beispiele:</strong> Schwarzwald, Böhmerwald, Erzgebirge, Vogesen, Zentralmassiv (F), Apenninen, Dinarisches Geb., Balkangeb., Brit. Highlands</li>
+    <li><strong>Schwarzwald</strong> (Baden-Württemberg): durch variskische Gebirgsbildung; Quellflüsse der Donau = <strong>Brigach &amp; Breg</strong></li>
+    <li>Historisch: Holzschlag &amp; Köhlerei; heute: Tourismus &amp; Pendlerregion</li>
+  </ul>
+
+  <h3>🟡 Hügel- und Plattenland</h3>
+  <ul>
+    <li>Höhe unter 1.500 m · keine starke Reliefenergie</li>
+    <li>Sanfte Hügel, Tafeln, vereinzelte Erhebungen</li>
+    <li><strong>Schichtstufenlandschaft:</strong> Unterschiedl. harte Sedimentschichten → Treppen im Relief (z.B. Schwäbische Alb)</li>
+    <li>Sehr gute landwirtschaftliche Nutzung möglich</li>
+  </ul>
+
+  <h3>🟢 Vorländer und Becken</h3>
+  <ul>
+    <li>Schüsselförmige Einsenkungen, von Gebirgen umrahmt</li>
+    <li>Mit Meeres- und Flusssedimenten aufgefüllt</li>
+    <li><strong>Pariser Becken:</strong> ~150.000 km² · günstige Landwirtschaft (Champagne, Brie, Camembert)</li>
+    <li><strong>Nördl. Alpenvorland:</strong> Bayern + OÖ/NÖ (Österreich)</li>
+    <li><strong>Pannonisches Becken:</strong> Ungarn / Österreich / Slowakei / Kroatien</li>
+  </ul>
+
+  <h3>🔵 Flachländer und Ebenen</h3>
+  <ul>
+    <li>Weitgehend flach, nahe dem Meeresspiegel</li>
+    <li><strong>Nordeurop. Tiefebene:</strong> Von Frankreich bis Polen und Russland</li>
+    <li><strong>Osteurop. Ebene:</strong> Größtes zusammenhängendes Flachland Europas</li>
+    <li><strong>Poebene</strong> (Norditalien): Po = <strong>Dammfluss!</strong><br>
+    → Flussbett liegt <em>höher</em> als das umliegende Land → Hochwassergefahr<br>
+    → 650 km lang; lange durch Malaria gemieden; heute industrielles Kerngebiet Italiens</li>
+  </ul>
+
+  <div class="tip">
+    <strong>Bodenschätze nach geologischem Baustein:</strong><br>
+    Ureuropa → Erz, Steinkohle, Öl/Gas, seltene Metalle<br>
+    Paläoeuropa → Steinkohle Mittelengland; Öl/Gas Nordsee<br>
+    Mesoeuropa → Steinkohle Ruhr/Saar/Schlesien; Eisenerz Lothringen<br>
+    Neoeuropa → Öl/Gas Österreich &amp; Rumänien; Kalkstein
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════ SEKTION 6 ══════════════════════════ -->
+<div class="section" id="s6">
+  <h2>6. Entwicklung der EU</h2>
+
+  <h3>Karte: Etappen der Europäischen Integration</h3>
+  <div class="graph-container">
+    <svg viewBox="0 0 770 504" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:6px">
+  <rect width="770" height="504" fill="#faf8f5" rx="6"/>
+  <text x="385" y="16" font-size="11" font-weight="700" fill="#b44a2f" text-anchor="middle" font-family="Source Sans 3,sans-serif">Etappen der Europäischen Integration</text>
+  <rect x="10" y="22" width="64" height="62" fill="#f5c6c0" rx="5" stroke="#ddd" stroke-width="0.5"/><text x="42" y="38" font-size="9.5" font-weight="700" fill="#222" text-anchor="middle" font-family="Source Sans 3,sans-serif">1952</text><text x="42" y="52" font-size="8.5" font-weight="700" fill="#333" text-anchor="middle" font-family="Source Sans 3,sans-serif">EGKS</text><text x="42" y="68" font-size="7.5" fill="#444" text-anchor="middle" font-family="Source Sans 3,sans-serif">D,F,I,B,NL,L</text><rect x="78" y="22" width="64" height="62" fill="#f5a090" rx="5" stroke="#ddd" stroke-width="0.5"/><text x="110" y="38" font-size="9.5" font-weight="700" fill="#222" text-anchor="middle" font-family="Source Sans 3,sans-serif">1957</text><text x="110" y="52" font-size="8.5" font-weight="700" fill="#333" text-anchor="middle" font-family="Source Sans 3,sans-serif">EWG</text><text x="110" y="68" font-size="7.5" fill="#444" text-anchor="middle" font-family="Source Sans 3,sans-serif">Röm. Verträge</text><rect x="146" y="22" width="64" height="62" fill="#f5c070" rx="5" stroke="#ddd" stroke-width="0.5"/><text x="178" y="38" font-size="9.5" font-weight="700" fill="#222" text-anchor="middle" font-family="Source Sans 3,sans-serif">1973</text><text x="178" y="52" font-size="8.5" font-weight="700" fill="#333" text-anchor="middle" font-family="Source Sans 3,sans-serif">1.Erw.</text><text x="178" y="68" font-size="7.5" fill="#444" text-anchor="middle" font-family="Source Sans 3,sans-serif">UK,IRL,DK</text><rect x="214" y="22" width="64" height="62" fill="#f5e070" rx="5" stroke="#ddd" stroke-width="0.5"/><text x="246" y="38" font-size="9.5" font-weight="700" fill="#222" text-anchor="middle" font-family="Source Sans 3,sans-serif">1981/86</text><text x="246" y="52" font-size="8.5" font-weight="700" fill="#333" text-anchor="middle" font-family="Source Sans 3,sans-serif">Süd</text><text x="246" y="68" font-size="7.5" fill="#444" text-anchor="middle" font-family="Source Sans 3,sans-serif">GR,ES,PT</text><rect x="282" y="22" width="64" height="62" fill="#c0e8a0" rx="5" stroke="#ddd" stroke-width="0.5"/><text x="314" y="38" font-size="9.5" font-weight="700" fill="#222" text-anchor="middle" font-family="Source Sans 3,sans-serif">1990</text><text x="314" y="52" font-size="8.5" font-weight="700" fill="#333" text-anchor="middle" font-family="Source Sans 3,sans-serif">DDR</text><text x="314" y="68" font-size="7.5" fill="#444" text-anchor="middle" font-family="Source Sans 3,sans-serif">→ BRD</text><rect x="350" y="22" width="64" height="62" fill="#90d890" rx="5" stroke="#ddd" stroke-width="0.5"/><text x="382" y="38" font-size="9.5" font-weight="700" fill="#222" text-anchor="middle" font-family="Source Sans 3,sans-serif">1995</text><text x="382" y="52" font-size="8.5" font-weight="700" fill="#333" text-anchor="middle" font-family="Source Sans 3,sans-serif">EFTA</text><text x="382" y="68" font-size="7.5" fill="#444" text-anchor="middle" font-family="Source Sans 3,sans-serif">A,FIN,SE</text><rect x="418" y="22" width="64" height="62" fill="#70d8b0" rx="5" stroke="#ddd" stroke-width="0.5"/><text x="450" y="38" font-size="9.5" font-weight="700" fill="#222" text-anchor="middle" font-family="Source Sans 3,sans-serif">2004</text><text x="450" y="52" font-size="8.5" font-weight="700" fill="#333" text-anchor="middle" font-family="Source Sans 3,sans-serif">Ost</text><text x="450" y="68" font-size="7.5" fill="#444" text-anchor="middle" font-family="Source Sans 3,sans-serif">10 Staaten</text><rect x="486" y="22" width="64" height="62" fill="#70c8d8" rx="5" stroke="#ddd" stroke-width="0.5"/><text x="518" y="38" font-size="9.5" font-weight="700" fill="#222" text-anchor="middle" font-family="Source Sans 3,sans-serif">2007</text><text x="518" y="52" font-size="8.5" font-weight="700" fill="#333" text-anchor="middle" font-family="Source Sans 3,sans-serif">Ost 2</text><text x="518" y="68" font-size="7.5" fill="#444" text-anchor="middle" font-family="Source Sans 3,sans-serif">BG,RO</text><rect x="554" y="22" width="64" height="62" fill="#90b8e8" rx="5" stroke="#ddd" stroke-width="0.5"/><text x="586" y="38" font-size="9.5" font-weight="700" fill="#222" text-anchor="middle" font-family="Source Sans 3,sans-serif">2009</text><text x="586" y="52" font-size="8.5" font-weight="700" fill="#333" text-anchor="middle" font-family="Source Sans 3,sans-serif">Lissabon</text><text x="586" y="68" font-size="7.5" fill="#444" text-anchor="middle" font-family="Source Sans 3,sans-serif">EU-Reform</text><rect x="622" y="22" width="64" height="62" fill="#b0a0d8" rx="5" stroke="#ddd" stroke-width="0.5"/><text x="654" y="38" font-size="9.5" font-weight="700" fill="#222" text-anchor="middle" font-family="Source Sans 3,sans-serif">2013</text><text x="654" y="52" font-size="8.5" font-weight="700" fill="#333" text-anchor="middle" font-family="Source Sans 3,sans-serif">HR</text><text x="654" y="68" font-size="7.5" fill="#444" text-anchor="middle" font-family="Source Sans 3,sans-serif">Kroatien</text><rect x="690" y="22" width="64" height="62" fill="#d0b0d8" rx="5" stroke="#ddd" stroke-width="0.5"/><text x="722" y="38" font-size="9.5" font-weight="700" fill="#222" text-anchor="middle" font-family="Source Sans 3,sans-serif">2020</text><text x="722" y="52" font-size="8.5" font-weight="700" fill="#333" text-anchor="middle" font-family="Source Sans 3,sans-serif">Brexit</text><text x="722" y="68" font-size="7.5" fill="#444" text-anchor="middle" font-family="Source Sans 3,sans-serif">UK austritt</text>
+  <line x1="10" y1="94" x2="760" y2="94" stroke="#e0dcd6" stroke-width="1"/>
+  <text x="20" y="98" font-size="7.5" font-weight="700" fill="#999" font-family="Source Sans 3,sans-serif">JAHR</text>
+  <text x="95" y="98" font-size="7.5" font-weight="700" fill="#999" font-family="Source Sans 3,sans-serif">EREIGNIS</text>
+  <text x="290" y="98" font-size="7.5" font-weight="700" fill="#999" font-family="Source Sans 3,sans-serif">DETAIL</text>
+  <rect x="10" y="100" width="750" height="24" fill="#f8f5f0" rx="2"/><text x="20" y="116" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">1948</text><text x="95" y="116" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Benelux-Union</text><text x="290" y="116" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">Belgien, Niederlande, Luxemburg → direkter Vorläufer der EU</text><rect x="10" y="126" width="750" height="24" fill="#ffffff" rx="2"/><text x="20" y="142" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">1951</text><text x="95" y="142" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Pariser Vertrag</text><text x="290" y="142" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">Montanunion (EGKS): D, F, I, B, NL, L – Kohle &amp; Stahl teilen</text><rect x="10" y="152" width="750" height="24" fill="#f8f5f0" rx="2"/><text x="20" y="168" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">1957</text><text x="95" y="168" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Röm. Verträge</text><text x="290" y="168" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">EWG + EURATOM gegründet – gemeinsamer Markt, 4 Freiheiten</text><rect x="10" y="178" width="750" height="24" fill="#ffffff" rx="2"/><text x="20" y="194" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">1973</text><text x="95" y="194" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Norderweiterung</text><text x="290" y="194" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">Großbritannien, Irland, Dänemark beigetreten</text><rect x="10" y="204" width="750" height="24" fill="#f8f5f0" rx="2"/><text x="20" y="220" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">1979</text><text x="95" y="220" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">EP-Direktwahl</text><text x="290" y="220" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">Erstmals direkte Wahl des Europ. Parlaments durch EU-Bürger</text><rect x="10" y="230" width="750" height="24" fill="#ffffff" rx="2"/><text x="20" y="246" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">1981/86</text><text x="95" y="246" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Süderweiterung</text><text x="290" y="246" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">Griechenland (1981), Spanien &amp; Portugal (1986)</text><rect x="10" y="256" width="750" height="24" fill="#f8f5f0" rx="2"/><text x="20" y="272" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">1990</text><text x="95" y="272" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Dt. Wiederverein.</text><text x="290" y="272" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">DDR-Gebiet wird durch Wiedervereinigung Teil der EU</text><rect x="10" y="282" width="750" height="24" fill="#ffffff" rx="2"/><text x="20" y="298" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">1992</text><text x="95" y="298" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Maastricht</text><text x="290" y="298" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">Vertrag über die EU: Unionsbürgerschaft, 4 Freiheiten, Euro geplant</text><rect x="10" y="308" width="750" height="24" fill="#f8f5f0" rx="2"/><text x="20" y="324" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">1995</text><text x="95" y="324" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">EFTA-Beitritt</text><text x="290" y="324" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">Österreich, Finnland, Schweden (Norwegen stimmte Nein!)</text><rect x="10" y="334" width="750" height="24" fill="#ffffff" rx="2"/><text x="20" y="350" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">1999</text><text x="95" y="350" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Euro</text><text x="290" y="350" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">1. Jänner 1999: Euro als Buchgeld; Bargeld ab 1. Jänner 2002</text><rect x="10" y="360" width="750" height="24" fill="#f8f5f0" rx="2"/><text x="20" y="376" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">2004</text><text x="95" y="376" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Osterweiterung</text><text x="290" y="376" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">PL, HU, CZ, SK, SI, EST, LV, LT + Malta + Zypern – 10 Staaten!</text><rect x="10" y="386" width="750" height="24" fill="#ffffff" rx="2"/><text x="20" y="402" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">2007</text><text x="95" y="402" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Osterweiterung 2</text><text x="290" y="402" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">Bulgarien und Rumänien</text><rect x="10" y="412" width="750" height="24" fill="#f8f5f0" rx="2"/><text x="20" y="428" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">2009</text><text x="95" y="428" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Vertrag v. Lissabon</text><text x="290" y="428" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">EU-Reform: mehr Macht für EP, feste Ratspräsidentschaft (2,5 J.)</text><rect x="10" y="438" width="750" height="24" fill="#ffffff" rx="2"/><text x="20" y="454" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">2013</text><text x="95" y="454" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Kroatien</text><text x="290" y="454" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">Jüngster Beitrittsstaat – damals 28. Mitglied</text><rect x="10" y="464" width="750" height="24" fill="#f8f5f0" rx="2"/><text x="20" y="480" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">2020</text><text x="95" y="480" font-size="9.5" font-weight="700" fill="#222" font-family="Source Sans 3,sans-serif">Brexit</text><text x="290" y="480" font-size="9" fill="#555" font-family="Source Sans 3,sans-serif">Großbritannien verlässt EU → heute wieder 27 Mitglieder</text>
+  <text x="385" y="500" font-size="8" fill="#bbb" text-anchor="middle" font-family="Source Sans 3,sans-serif">Heute: 27 Mitglieder · Euro-Zone: 20 Länder · Schengen: 27 Länder</text>
+</svg>
+  </div>
+
+  <h3>Die 6 Gründungsstaaten (1951/1957)</h3>
+  <div class="formula">
+    Deutschland · Frankreich · Italien · Belgien · Niederlande · Luxemburg<br><br>
+    <strong>1952:</strong> EGKS (Europäische Gemeinschaft für Kohle und Stahl) – Montanunion<br>
+    <strong>1957:</strong> EWG + EURATOM durch die Römischen Verträge
+  </div>
+
+  <h3>Die 4 Grundfreiheiten der EU</h3>
+  <div class="rule">
+    <strong>1. Freier Warenverkehr</strong> – Produkte ohne Zölle zwischen EU-Ländern<br>
+    <strong>2. Freier Personenverkehr</strong> – EU-Bürger dürfen überall leben &amp; arbeiten<br>
+    <strong>3. Freier Dienstleistungsverkehr</strong> – Firmen dürfen EU-weit Dienste anbieten<br>
+    <strong>4. Freier Kapitalverkehr</strong> – Geld &amp; Investitionen fließen frei im EU-Raum
+  </div>
+
+  <h3>Österreichs EU-Beitritt 1995</h3>
+  <ul>
+    <li>SPÖ + ÖVP gemeinsames Ziel: Österreich in die EU führen</li>
+    <li>Volksabstimmung: <strong>über 66 % stimmten JA</strong></li>
+    <li>Gleichzeitig: Finnland &amp; Schweden beigetreten</li>
+    <li>Norwegen: stimmte erneut <strong>gegen</strong> Beitritt (bleibt EFTA)</li>
+    <li>Schengen-Abkommen: Österreich 1997 → Grenzkontrollen fallen weg</li>
+  </ul>
+
+  <h3>Unionsbürgerschaft</h3>
+  <div class="rule">
+    Kein <em>Ersatz</em>, sondern <strong>Ergänzung</strong> zur nationalen Staatsbürgerschaft:<br>
+    → Freies Aufenthalts- &amp; Bewegungsrecht im EU-Raum<br>
+    → Teilnahme an Kommunalwahlen im EU-Wohnsitzland<br>
+    → Wahl des Europäischen Parlaments<br>
+    → Konsularschutz durch alle EU-Botschaften weltweit
+  </div>
+
+  <h3>EU-Flagge – Symbolik</h3>
+  <div class="formula">
+    <strong>12 goldene Sterne</strong> = Vollkommenheit, Einheit &amp; Harmonie – <strong>NICHT</strong> die Anzahl der Mitglieder!<br>
+    <strong>Kreis</strong> = Geschlossenheit &amp; Solidarität der Gemeinschaft<br>
+    <strong>Blau</strong> = Frieden, Weite, Freiheit des Himmels<br>
+    Die Flagge ändert sich <em>nicht</em> bei Erweiterungen oder Austritten!
+  </div>
+
+  <h3>Euro</h3>
+  <ul>
+    <li>Eingeführt am <strong>1. Jänner 1999</strong> (zunächst als Buchgeld)</li>
+    <li>Bargeld ab <strong>1. Jänner 2002</strong></li>
+    <li>Heute in <strong>20 EU-Ländern</strong> Währung</li>
+    <li><strong>Nicht im Euro:</strong> DK (Krone), PL (Złoty), RO (Leu), SE (Krone), CZ (Krone), HU (Forint)</li>
+  </ul>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════ SEKTION 7 ══════════════════════════ -->
+<div class="section" id="s7">
+  <h2>7. Politische Institutionen der EU</h2>
+
+  <div class="warning">
+    <strong>⚠ ACHTUNG – häufigster Fehler!</strong><br>
+    „Europäischer Rat" ≠ „Rat der EU" – das sind <strong>zwei völlig verschiedene Institutionen!</strong>
+  </div>
+
+  <div class="formula">
+    <strong>Gewaltenteilung in der EU – wie in einem demokratischen Staat:</strong><br><br>
+    <strong>Legislative:</strong> Europäisches Parlament + Rat der EU<br>
+    <strong>Exekutive:</strong> Europäischer Rat + Europäische Kommission<br>
+    <strong>Judikative:</strong> Europäischer Gerichtshof (EuGH)
+  </div>
+
+  <h3>Karte: Standorte der EU-Institutionen</h3>
+  <div class="graph-container">
+    <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;border-radius:6px">
+  <rect width="720" height="360" fill="#d4e8f0" rx="6"/>
+  <path d="M 180.5,486.0 L 218.5,486.0 L 266.0,465.8 L 294.5,418.5 L 332.5,391.5 L 380.0,371.2 L 399.0,418.5 L 418.0,459.0 L 437.0,432.0 L 456.0,452.2 L 456.0,351.0 L 437.0,297.0 L 399.0,270.0 L 351.5,229.5 L 342.0,229.5 L 313.5,256.5 L 294.5,276.8 L 266.0,283.5 L 285.0,283.5 L 247.0,310.5 L 223.2,324.0 L 218.5,337.5 L 247.0,378.0 L 247.0,384.8 L 190.0,384.8 L 180.5,405.0 L 180.5,445.5 L 180.5,472.5 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 211.8,297.0 L 237.5,290.2 L 266.0,278.1 L 282.1,278.1 L 268.9,256.5 L 237.5,229.5 L 247.0,217.4 L 228.0,195.8 L 218.5,182.2 L 237.5,179.5 L 247.0,199.8 L 256.5,222.8 L 237.5,251.1 L 237.5,276.8 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><path d="M 171.0,276.8 L 190.0,276.8 L 209.0,267.3 L 209.0,252.5 L 190.0,239.0 L 171.0,253.8 Z" fill="#f0ece4" stroke="#bbb" stroke-width="0.8"/><circle cx="307.3" cy="285.5" r="11" fill="#b44a2f" stroke="white" stroke-width="2" opacity="0.92"/><text x="307.3" y="271.5" font-size="9" font-weight="700" fill="#b44a2f" text-anchor="middle" font-family="Source Sans 3,sans-serif">Brüssel</text><text x="323.3" y="287.5" font-size="7.5" fill="#333" font-family="Source Sans 3,sans-serif">Europ. Kommission · Rat der EU · EP Nebensitz</text><circle cx="339.6" cy="316.2" r="11" fill="#2a4a8e" stroke="white" stroke-width="2" opacity="0.92"/><text x="339.6" y="302.2" font-size="9" font-weight="700" fill="#2a4a8e" text-anchor="middle" font-family="Source Sans 3,sans-serif">Straßburg</text><text x="355.6" y="318.2" font-size="7.5" fill="#333" font-family="Source Sans 3,sans-serif">Europ. Parlament (Hauptsitz)</text><circle cx="324.2" cy="302.3" r="11" fill="#c9870a" stroke="white" stroke-width="2" opacity="0.92"/><text x="324.2" y="288.3" font-size="9" font-weight="700" fill="#c9870a" text-anchor="middle" font-family="Source Sans 3,sans-serif">Luxemburg</text><text x="340.2" y="304.3" font-size="7.5" fill="#333" font-family="Source Sans 3,sans-serif">EuGH · Europ. Rechnungshof</text><circle cx="348.5" cy="295.5" r="11" fill="#2a6e4e" stroke="white" stroke-width="2" opacity="0.92"/><text x="348.5" y="281.5" font-size="9" font-weight="700" fill="#2a6e4e" text-anchor="middle" font-family="Source Sans 3,sans-serif">Frankfurt</text><text x="364.5" y="297.5" font-size="7.5" fill="#333" font-family="Source Sans 3,sans-serif">Europ. Zentralbank (EZB)</text><circle cx="306.8" cy="269.1" r="11" fill="#7c3aed" stroke="white" stroke-width="2" opacity="0.92"/><text x="306.8" y="255.1" font-size="9" font-weight="700" fill="#7c3aed" text-anchor="middle" font-family="Source Sans 3,sans-serif">Den Haag</text><text x="322.8" y="271.1" font-size="7.5" fill="#333" font-family="Source Sans 3,sans-serif">Europol</text>
+  <rect x="490" y="25" width="222" height="306" fill="white" opacity="0.95" rx="5" stroke="#e0dcd6" stroke-width="1"/>
+  <text x="601" y="42" font-size="10" font-weight="700" fill="#b44a2f" text-anchor="middle" font-family="Source Sans 3,sans-serif">EU-Institutionen</text>
+  <circle cx="505" cy="52" r="8" fill="#b44a2f" opacity="0.9"/><text x="519" y="55" font-size="9.5" font-weight="700" fill="#b44a2f" font-family="Source Sans 3,sans-serif">Brüssel</text><text x="519" y="68" font-size="8.5" fill="#555" font-family="Source Sans 3,sans-serif">Europ. Kommission · Rat der EU · EP Nebens</text><circle cx="505" cy="106" r="8" fill="#2a4a8e" opacity="0.9"/><text x="519" y="109" font-size="9.5" font-weight="700" fill="#2a4a8e" font-family="Source Sans 3,sans-serif">Straßburg</text><text x="519" y="122" font-size="8.5" fill="#555" font-family="Source Sans 3,sans-serif">Europ. Parlament (Hauptsitz)</text><circle cx="505" cy="160" r="8" fill="#c9870a" opacity="0.9"/><text x="519" y="163" font-size="9.5" font-weight="700" fill="#c9870a" font-family="Source Sans 3,sans-serif">Luxemburg</text><text x="519" y="176" font-size="8.5" fill="#555" font-family="Source Sans 3,sans-serif">EuGH · Europ. Rechnungshof</text><circle cx="505" cy="214" r="8" fill="#2a6e4e" opacity="0.9"/><text x="519" y="217" font-size="9.5" font-weight="700" fill="#2a6e4e" font-family="Source Sans 3,sans-serif">Frankfurt</text><text x="519" y="230" font-size="8.5" fill="#555" font-family="Source Sans 3,sans-serif">Europ. Zentralbank (EZB)</text><circle cx="505" cy="268" r="8" fill="#7c3aed" opacity="0.9"/><text x="519" y="271" font-size="9.5" font-weight="700" fill="#7c3aed" font-family="Source Sans 3,sans-serif">Den Haag</text><text x="519" y="284" font-size="8.5" fill="#555" font-family="Source Sans 3,sans-serif">Europol</text>
+  <text x="360" y="354" font-size="8" fill="#999" text-anchor="middle" font-family="Source Sans 3,sans-serif">⚠ Europäischer Rat ≠ Rat der EU – zwei völlig verschiedene Institutionen!</text>
+</svg>
+  </div>
+  <p class="graph-label">Merke: Das Europäische Parlament hat seinen Hauptsitz in Straßburg – nicht in Brüssel!</p>
+
+  <h3>Europäischer Rat</h3>
+  <div class="rule">
+    Auch: „EU-Gipfeltreffen" · <strong>27 Staats- und Regierungschefs</strong> + Kommissionspräsident<br>
+    → Legt <strong>politische Leitlinien</strong> der EU fest (Chefsache!)<br>
+    → Trifft sich in <strong>Brüssel</strong><br>
+    → Seit Lissabon: <strong>fester Ratsvorsitz</strong> (2,5 Jahre, kein nationales Amt, kein Stimmrecht)<br>
+    → <strong>Österreich vertreten durch: den/die Bundeskanzler/in</strong>
+  </div>
+
+  <h3>Rat der EU (Ministerrat)</h3>
+  <div class="rule">
+    Zentrale <strong>gesetzgebende Gewalt</strong> der EU<br>
+    → Je ein <strong>Fachminister</strong> pro Mitgliedsland (Thema abhängig – z.B. Umweltrat, Wirtschaftsrat …)<br>
+    → Vorsitz wechselt <strong>halbjährlich</strong> (außer Außenpolitik)<br>
+    → <strong>Qualifizierte Mehrheit:</strong> 55 % der Staaten + 65 % der EU-Bevölkerung<br>
+    → <strong>Einstimmigkeit</strong> bei Außen- und Sicherheitspolitik<br>
+    → Stimmen: D/F/I = 29; Malta = 3; gesamt: 323 Stimmen
+  </div>
+
+  <h3>Europäische Kommission</h3>
+  <div class="rule">
+    <strong>27 Kommissare</strong> (je einer pro Mitgliedsland) · Amtszeit: <strong>5 Jahre</strong><br>
+    → Von Regierungen vorgeschlagen, vom EP bestätigt<br>
+    → <strong>Initiativrecht:</strong> Nur die Kommission kann Gesetze vorschlagen!<br>
+    → <strong>„Hüterin der Verträge":</strong> Prüft ob Mitglieder EU-Recht einhalten<br>
+    → Sitz: <strong>Berlaymont-Gebäude, Brüssel</strong><br>
+    → Europ. Bürgerinitiative: 1 Mio. Unterschriften → Kommission muss reagieren
+  </div>
+
+  <h3>Europäisches Parlament</h3>
+  <div class="rule">
+    Direkt von EU-Bürgern gewählt – <strong>seit 1979!</strong> · Amtszeit: <strong>5 Jahre</strong><br>
+    → Sitzordnung nach <strong>Fraktionen</strong>, nicht nach Ländern<br>
+    → Hauptsitz: <strong>Straßburg</strong> | Nebensitz: Brüssel<br>
+    → <strong>705 Abgeordnete</strong> (D: 96 = meiste; Malta: 6 = wenigste)<br>
+    → ÖVP → EVP (Europ. Volkspartei) | SPÖ → S&amp;D (Sozialdemokratische Fraktion)
+  </div>
+
+  <h3>Weitere EU-Institutionen</h3>
+  <table>
+    <tr><th>Institution</th><th>Sitz</th><th>Aufgabe</th></tr>
+    <tr><td><strong>Europäischer Gerichtshof (EuGH)</strong></td><td>Luxemburg</td><td>Einheitliche Auslegung des EU-Rechts</td></tr>
+    <tr><td><strong>Europäischer Rechnungshof</strong></td><td>Luxemburg</td><td>Prüft ordnungsgemäße Verwendung von EU-Geldern</td></tr>
+    <tr><td><strong>Europäische Zentralbank (EZB)</strong></td><td>Frankfurt</td><td>Geldpolitik der Euro-Zone, Zinssätze festlegen</td></tr>
+    <tr><td><strong>Europol</strong></td><td>Den Haag</td><td>EU-Polizeiamt, koordiniert grenzübersch. Verbrechensbekämpfung</td></tr>
+  </table>
+
+  <h3>Stimmenverteilung – Überblick</h3>
+  <table>
+    <tr><th>Staat</th><th>Bevölk. (Mio.)</th><th>Stimmen Rat der EU</th><th>Sitze EP</th></tr>
+    <tr><td>Deutschland</td><td>82,8</td><td>29</td><td>96</td></tr>
+    <tr><td>Frankreich</td><td>65,1</td><td>29</td><td>79</td></tr>
+    <tr><td>Italien</td><td>60,6</td><td>29</td><td>76</td></tr>
+    <tr><td>Spanien</td><td>46,7</td><td>27</td><td>59</td></tr>
+    <tr><td>Polen</td><td>38,4</td><td>27</td><td>52</td></tr>
+    <tr><td>Österreich</td><td>8,8</td><td>10</td><td>19</td></tr>
+    <tr><td>Luxemburg</td><td>0,6</td><td>4</td><td>6</td></tr>
+    <tr><td>Malta</td><td>0,5</td><td>3</td><td>6</td></tr>
+    <tr><td><strong>GESAMT EU</strong></td><td><strong>~444</strong></td><td><strong>323</strong></td><td><strong>705</strong></td></tr>
+  </table>
+  <div class="tip">
+    Kleine Staaten sind relativ stärker gewichtet – Schutz der Minderheiten.<br>
+    Bei sensiblen Themen (Außenpolitik, Steuern, Verfassung): <strong>Einstimmigkeit</strong> erforderlich!
+  </div>
+
+  <h3>✅ Aufgabe 8.3.B – Institutionen zuordnen (Musterlösung)</h3>
+  <table>
+    <tr><th>Aussage</th><th>Europ. Rat</th><th>Rat d. EU</th><th>Kommission</th><th>EP</th></tr>
+    <tr><td>1) Jeder MS durch eine Person vertreten</td><td>✓</td><td>✓</td><td>✓</td><td></td></tr>
+    <tr><td>2) PolitikerInnen stellen sich Befragung im EP</td><td></td><td></td><td>✓</td><td></td></tr>
+    <tr><td>3) Bevölkerungsreichere Staaten mehr Stimmen</td><td></td><td>✓</td><td></td><td>✓</td></tr>
+    <tr><td>4) Österreich durch BundeskanzlerIn vertreten</td><td>✓</td><td>✓</td><td></td><td></td></tr>
+    <tr><td>5) Je nach Thema unterschiedliche FachministerInnen</td><td></td><td>✓</td><td></td><td></td></tr>
+    <tr><td>6) Amtszeit dauert 5 Jahre</td><td></td><td></td><td>✓</td><td>✓</td></tr>
+    <tr><td>7) ÖsterreicherInnen können VertreterInnen direkt wählen</td><td></td><td></td><td></td><td>✓</td></tr>
+    <tr><td>8) Vorsitz wechselt alle 6 Monate</td><td></td><td>✓</td><td></td><td></td></tr>
+  </table>
+
+  <h3>Zusammenfassung – Was du für den Test wissen musst</h3>
+  <div class="rule"><strong>Europäischer Rat:</strong> Gipfel der 27 Staats-/Regierungschefs · Leitlinien · Brüssel · Österreich = BK/in</div>
+  <div class="rule"><strong>Rat der EU:</strong> Fachminister · halbjährl. Vorsitz · qualif. Mehrheit (55%+65%) · Einstimmigkeit Außenpolitik</div>
+  <div class="rule"><strong>Kommission:</strong> 27 Kommissare · 5 Jahre · Initiativrecht · Hüterin der Verträge · Berlaymont Brüssel</div>
+  <div class="rule"><strong>Parlament:</strong> direkt gewählt seit 1979 · 5 Jahre · 705 Abgeordnete · Hauptsitz Straßburg · Fraktionen</div>
+  <div class="rule"><strong>EuGH &amp; Rechnungshof:</strong> Luxemburg · Judikative &amp; Finanzkontrolle</div>
+  <div class="rule"><strong>EZB:</strong> Frankfurt · Geldpolitik Euro-Zone</div>
+  <div class="rule"><strong>Europol:</strong> Den Haag · EU-Polizeiamt</div>
+</div>
+
+<hr class="divider">
+
+<div style="text-align:center; padding: 30px 0; color: #999; font-size: 0.9em;">
+  Erstellt als Lernunterlage für Dani · HTL Thalheim bei Wels · GEO-Test 2026
+</div>
+
+</div>
+</body>
+</html>
